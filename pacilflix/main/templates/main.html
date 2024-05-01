@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PacilFlix - A12</title>
+    <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../styles/main.css">
+</head>
+<body>
+    <div class="container">
+        <img src="logo.png" alt="" class="logo">
+        <h1>PacilFlix - A12</h1>
+        <h2>Tempat Nonton Favorit Anda</h2>
+        <p>Nikmati ribuan judul film dan acara TV tanpa batas kapan saja, di mana saja.</p>
+        <div class="button-container">
+            <a href="{% url 'authentication:login' %}" class="login-button">Login</a>
+            <a href="{% url 'authentication:register' %}" class="register-button">Register</a>
+        </div>
+    </div>
+</body>
+</html>
