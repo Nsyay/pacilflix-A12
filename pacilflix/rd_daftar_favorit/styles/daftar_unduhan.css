@@ -1,0 +1,61 @@
+body {
+    font-family: 'Raleway', sans-serif;
+    color: #ffffff;
+    background-color: #1a4276;
+    margin: 0;
+    padding: 0;
+}
+
+.container {
+    width: 80%;
+    margin: auto;
+    text-align: center;
+}
+
+header {
+    background: #162769;
+    padding: 20px 0;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    background: #242f69;
+    margin: 20px 0;
+}
+
+th, td {
+    padding: 15px;
+    border-bottom: 1px solid #2d3250;
+    color: #ffffff;
+}
+
+th {
+    text-align: left;
+}
+
+.delete-btn {
+    background-color: #fb917a;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    color: #ffffff;
+}
+
+footer {
+    background: #162769;
+    padding: 10px 0;
+    position: fixed;
+    width: 100%;
+    bottom: 0;
+}
+
+footer p {
+    margin: 0;
+    padding: 0;
+}
+
+footer span {
+    color: #fb917a;
+}
