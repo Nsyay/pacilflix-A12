@@ -39,6 +39,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'main',
     'authentication',
+    'r_daftar_kontributor',
+    'cru_langganan',
 ]
 
 MIDDLEWARE = [

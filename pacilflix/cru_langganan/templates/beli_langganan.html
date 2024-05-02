@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Halaman Beli Langganan</title>
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Open Sans', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #2d3250;
+            color: #ffffff;
+        }
+        h1 {
+            text-align: center;
+            margin-bottom: 20px;
+            margin-top: 20px;
+        }
+        .container {
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 20px;
+            border: 1px solid #9fa8c5;
+            border-radius: 5px;
+            margin-bottom: 20px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        th, td {
+            padding: 8px;
+            text-align: left;
+            border-bottom: 1px solid #9fa8c5;
+        }
+        th {
+            background-color: #424769;
+        }
+        .button {
+            padding: 10px 20px;
+            background-color: #fbad5a;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            width: 100%;
+        }
+        .button:hover {
+            background-color: #ca8030;
+        }
+        .dropdown {
+            position: relative;
+            display: inline-block;
+        }
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: #f9f9f9;
+            min-width: 160px;
+            box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+            z-index: 1;
+        }
+        .dropdown-content a {
+            color: black;
+            padding: 12px 16px;
+            text-decoration: none;
+            display: block;
+        }
+        .dropdown-content a:hover {
+            background-color: #f1f1f1;
+        }
+        .dropdown:hover .dropdown-content {
+            display: block;
+        }
+    </style>
+</head>
+<body>
+    <h1 style="text-align: center;">Halaman Beli Langganan</h1>
+    <div class="container">
+        <h3>Informasi Paket yang Ingin Dibeli:</h3>
+        <table>
+            <tr>
+                <th>Nama</th>
+                <th>Harga</th>
+                <th>Resolusi Layar</th>
+                <th>Dukungan Perangkat</th>
+            </tr>
+            <tr>
+                <td>Premium</td>
+                <td>Rp149.000</td>
+                <td>1080p</td>
+                <td>Mobile, Web</td>
+            </tr>
+        </table>
+        <h3>Pilih Metode Pembayaran:</h3>
+        <div class="dropdown">
+            <button class="button" style="background-color: #9fa8c5;">Pilih Metode Pembayaran</button>
+            <div class="dropdown-content">
+                <a href="#">transfer bank</a>
+                <a href="#">kartu kredit</a>
+                <a href="#">e-wallet</a>
+            </div>
+        </div>
+        <br>
+        <button class="button" style="margin-top: 15px;">Bayar</button>
+    </div>
+</body>
+</html>
