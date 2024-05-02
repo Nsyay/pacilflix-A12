@@ -39,12 +39,14 @@
             background-color: #424769;
         }
         .button {
+            display: inline-block;
             padding: 10px 20px;
             background-color: #fbad5a;
             color: white;
             border: none;
             border-radius: 5px;
             cursor: pointer;
+            text-decoration: none; 
         }
         .button:hover {
             background-color: #ca8030;
@@ -91,21 +93,21 @@
                 <td>Rp149.000</td>
                 <td>1080p</td>
                 <td>Mobile, Web</td>
-                <td><button class="button">Subscribe</button></td>
+                <td><a href="{% url 'beli_langganan' %}" class="button">Subscribe</a></td>
             </tr>
             <tr>
                 <td>Standar</td>
                 <td>Rp120.000</td>
                 <td>720p</td>
                 <td>Mobile</td>
-                <td><button class="button">Subscribe</button></td>
+                <td><a href="{% url 'beli_langganan' %}" class="button">Subscribe</a></td>
             </tr>
             <tr>
                 <td>Basic</td>
                 <td>Rp100.000</td>
                 <td>480p</td>
                 <td>Web</td>
-                <td><button class="button">Subscribe</button></td>
+                <td><a href="{% url 'beli_langganan' %}" class="button">Subscribe</a></td>
             </tr>
         </table>
         </div>
