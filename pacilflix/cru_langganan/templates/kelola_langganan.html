@@ -1,5 +1,7 @@
-<!DOCTYPE html>
-<html lang="en">
+{% extends 'base.html' %}
+{% load static %}
+
+{% block meta %}
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -54,6 +56,9 @@
         
     </style>
 </head>
+{% endblock meta %}
+
+{% block content %}
 <body>
     <h1>Halaman Kelola Langganan</h1>
     <div class="container">
@@ -142,4 +147,4 @@
         </table>
     </div>
 </body>
-</html>
+{% endblock content %}  
