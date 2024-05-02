@@ -1,9 +1,11 @@
-<!DOCTYPE html>
-<html lang="en">
+{% extends 'base.html' %}
+{% load static %}
+
+{% block meta %}
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{%judul tayangan%}</title>
+    <title>judul tayangan</title>
     <style>
         body {
             background-color: #2d3250;
@@ -75,6 +77,9 @@
         }
     </style>
 </head>
+{% endblock meta %}
+
+{% block content %}
 <body>
     <div class="container">
         <center><h1>Ulasan Judul Film</h1></center>
@@ -132,4 +137,4 @@
         });
     </script>
 </body>
-</html>
+{% endblock content %} 

@@ -1,5 +1,7 @@
-<!DOCTYPE html>
-<html lang="en">
+{% extends 'base.html' %}
+{% load static %}
+
+{% block meta %}
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -35,6 +37,9 @@
     }
   </style>
 </head>
+{% endblock meta %}
+
+{% block content %}
 <body>
 
 <div class="container">
@@ -55,9 +60,9 @@
           <h4>1</h4>
           <h5 class="card-title">Judul</h5>
           <p class="card-text">Sinopsis lorem ipsum folor sit amet</p>
-          <p class="card-text"><a href="">lihat trailer</a> - tanggal rilis trailer</p>
+          <p class="card-text"><a href="{% url 'tayangan:trailer' %}">lihat trailer</a> - tanggal rilis trailer</p>
           <p class="card-text">xx views</p>
-          <a href="#" class="btn btn-primary">Tonton</a> 
+          <a href="{% url 'tayangan:film' %}" class="btn btn-primary">Tonton</a> 
         </div>
       </div>
       <div class="card">
@@ -65,9 +70,9 @@
           <h4>2</h4>
           <h5 class="card-title">Judul</h5>
           <p class="card-text">Sinopsis lorem ipsum folor sit amet</p>
-          <p class="card-text"><a href="">lihat trailer</a> - tanggal rilis trailer</p>
+          <p class="card-text"><a href="{% url 'tayangan:trailer' %}">lihat trailer</a> - tanggal rilis trailer</p>
           <p class="card-text">xx views</p>
-          <a href="#" class="btn btn-primary">Tonton</a> 
+          <a href="{% url 'tayangan:film' %}" class="btn btn-primary">Tonton</a>  
         </div>
       </div>
       <div class="card">
@@ -75,9 +80,9 @@
           <h4>3</h4>
           <h5 class="card-title">Judul</h5>
           <p class="card-text">Sinopsis lorem ipsum folor sit amet</p>
-          <p class="card-text"><a href="">lihat trailer</a> - tanggal rilis trailer</p>
+          <p class="card-text"><a href="{% url 'tayangan:trailer' %}">lihat trailer</a> - tanggal rilis trailer</p>
           <p class="card-text">xx views</p>
-          <a href="#" class="btn btn-primary">Tonton</a> 
+          <a href="{% url 'tayangan:film' %}" class="btn btn-primary">Tonton</a> 
         </div>
       </div>
       <div class="card">
@@ -85,9 +90,9 @@
           <h4>4</h4>
           <h5 class="card-title">Judul</h5>
           <p class="card-text">Sinopsis lorem ipsum folor sit amet</p>
-          <p class="card-text"><a href="">lihat trailer</a> - tanggal rilis trailer</p>
+          <p class="card-text"><a href="{% url 'tayangan:trailer' %}">lihat trailer</a> - tanggal rilis trailer</p>
           <p class="card-text">xx views</p>
-          <a href="#" class="btn btn-primary">Tonton</a> 
+          <a href="{% url 'tayangan:film' %}" class="btn btn-primary">Tonton</a> 
         </div>
       </div>
       <div class="card">
@@ -95,9 +100,9 @@
           <h4>5</h4>
           <h5 class="card-title">Judul</h5>
           <p class="card-text">Sinopsis lorem ipsum folor sit amet</p>
-          <p class="card-text"><a href="">lihat trailer</a> - tanggal rilis trailer</p>
+          <p class="card-text"><a href="{% url 'tayangan:trailer' %}">lihat trailer</a> - tanggal rilis trailer</p>
           <p class="card-text">xx views</p>
-          <a href="#" class="btn btn-primary">Tonton</a> 
+          <a href="{% url 'tayangan:film' %}" class="btn btn-primary">Tonton</a> 
         </div>
       </div>
     </div>
@@ -106,50 +111,50 @@
         <div class="card-body">
           <h4>6</h4>
           <h5 class="card-title">Judul</h5>
-          <p class="card-text">Sinopsis lorem ipsum dolor sit amet</p>
-          <p class="card-text"><a href="#">Lihat trailer</a> - Tanggal rilis trailer</p>
+          <p class="card-text">Sinopsis lorem ipsum folor sit amet</p>
+          <p class="card-text"><a href="{% url 'tayangan:trailer' %}">lihat trailer</a> - tanggal rilis trailer</p>
           <p class="card-text">xx views</p>
-          <a href="#" class="btn btn-primary">Tonton</a> 
+          <a href="{% url 'tayangan:film' %}" class="btn btn-primary">Tonton</a> 
         </div>
       </div>
       <div class="card mb-3">
         <div class="card-body">
           <h4>7</h4>
           <h5 class="card-title">Judul</h5>
-          <p class="card-text">Sinopsis lorem ipsum dolor sit amet</p>
-          <p class="card-text"><a href="#">Lihat trailer</a> - Tanggal rilis trailer</p>
+          <p class="card-text">Sinopsis lorem ipsum folor sit amet</p>
+          <p class="card-text"><a href="{% url 'tayangan:trailer' %}">lihat trailer</a> - tanggal rilis trailer</p>
           <p class="card-text">xx views</p>
-          <a href="#" class="btn btn-primary">Tonton</a> 
+          <a href="{% url 'tayangan:film' %}" class="btn btn-primary">Tonton</a> 
         </div>
       </div>
       <div class="card mb-3">
         <div class="card-body">
           <h4>8</h4>
           <h5 class="card-title">Judul</h5>
-          <p class="card-text">Sinopsis lorem ipsum dolor sit amet</p>
-          <p class="card-text"><a href="#">Lihat trailer</a> - Tanggal rilis trailer</p>
+          <p class="card-text">Sinopsis lorem ipsum folor sit amet</p>
+          <p class="card-text"><a href="{% url 'tayangan:trailer' %}">lihat trailer</a> - tanggal rilis trailer</p>
           <p class="card-text">xx views</p>
-          <a href="#" class="btn btn-primary">Tonton</a> 
+          <a href="{% url 'tayangan:film' %}" class="btn btn-primary">Tonton</a> 
         </div>
       </div>
       <div class="card mb-3">
         <div class="card-body">
           <h4>9</h4>
           <h5 class="card-title">Judul</h5>
-          <p class="card-text">Sinopsis lorem ipsum dolor sit amet</p>
-          <p class="card-text"><a href="#">Lihat trailer</a> - Tanggal rilis trailer</p>
+          <p class="card-text">Sinopsis lorem ipsum folor sit amet</p>
+          <p class="card-text"><a href="{% url 'tayangan:trailer' %}">lihat trailer</a> - tanggal rilis trailer</p>
           <p class="card-text">xx views</p>
-          <a href="#" class="btn btn-primary">Tonton</a> 
+          <a href="{% url 'tayangan:film' %}" class="btn btn-primary">Tonton</a> 
         </div>
       </div>
       <div class="card mb-3">
         <div class="card-body">
           <h4>10</h4>
           <h5 class="card-title">Judul</h5>
-          <p class="card-text">Sinopsis lorem ipsum dolor sit amet</p>
-          <p class="card-text"><a href="#">Lihat trailer</a> - Tanggal rilis trailer</p>
+          <p class="card-text">Sinopsis lorem ipsum folor sit amet</p>
+          <p class="card-text"><a href="{% url 'tayangan:trailer' %}">lihat trailer</a> - tanggal rilis trailer</p>
           <p class="card-text">xx views</p>
-          <a href="#" class="btn btn-primary">Tonton</a> 
+          <a href="{% url 'tayangan:film' %}" class="btn btn-primary">Tonton</a>  
         </div>
       </div>
     </div>
@@ -162,8 +167,8 @@
         <div class="card-body">
           <h5 class="card-title">Judul</h5>
           <p class="card-text">Lorem ipsum dolor sit amet.</p>
-          <p class="card-text"><a href="#">Lihat trailer</a> - Tanggal rilis trailer</p>
-          <a href="#" class="btn btn-primary">Tonton</a> 
+          <p class="card-text"><a href="{% url 'tayangan:trailer' %}">Lihat trailer</a> - Tanggal rilis trailer</p>
+          <a href="{% url 'tayangan:film' %}" class="btn btn-primary">Tonton</a> 
         </div>
       </div>
     </div>
@@ -176,12 +181,12 @@
         <div class="card-body">
           <h5 class="card-title">Judul</h5>
           <p class="card-text">Lorem ipsum dolor sit amet.</p>
-          <p class="card-text"><a href="#">Lihat trailer</a> - Tanggal rilis trailer</p>
-          <a href="#" class="btn btn-primary">Tonton</a> 
+          <p class="card-text"><a href="{% url 'tayangan:trailer' %}">Lihat trailer</a> - Tanggal rilis trailer</p>
+          <a href="{% url 'tayangan:series' %}" class="btn btn-primary">Tonton</a> 
         </div>
       </div>
     </div>
   </div>
 </div>
 </body>
-</html>
+{% endblock content %} 

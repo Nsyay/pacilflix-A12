@@ -1,5 +1,7 @@
-<!DOCTYPE html>
-<html lang="en">
+{% extends 'base.html' %}
+{% load static %}
+
+{% block meta %}
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -77,6 +79,9 @@
         }
     </style>
 </head>
+{% endblock meta %}
+
+{% block content %}
 <body>
     <h1 style="text-align: center;">Halaman Beli Langganan</h1>
     <div class="container">
@@ -108,4 +113,4 @@
         <button class="button" style="margin-top: 15px;">Bayar</button>
     </div>
 </body>
-</html>
+{% endblock content %}

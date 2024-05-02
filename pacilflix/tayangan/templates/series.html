@@ -1,5 +1,7 @@
-<!DOCTYPE html>
-<html lang="en">
+{% extends 'base.html' %}
+{% load static %}
+
+{% block meta %}
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -50,7 +52,7 @@
             background-color: #ffc107;
             color: #212529;
         }
-        .film-reviews button {
+        .film-reviews a {
             padding: 10px 20px;
             cursor: pointer;
             border: none;
@@ -60,6 +62,9 @@
         }
     </style>
 </head>
+{% endblock meta %}
+
+{% block content %}
 <body>
     <div class="container">
         <div class="film-details">
@@ -78,20 +83,40 @@
         </div>
         <h3 style="color: white;">Episodes</h3>
         <div class="film-buttons">
-            <button class="primary">1</button>
-            <button class="primary">2</button>
-            <button class="primary">3</button>
-            <button class="primary">4</button>
-            <button class="primary">5</button>
-            <button class="primary">6</button>
-            <button class="primary">7</button>
-            <button class="primary">8</button>
-            <button class="primary">9</button>
-            <button class="primary">10</button>
+            <a href="{% url 'tayangan:episode' %}">
+                <button class="primary">1</button>
+            </a>
+            <a href="{% url 'tayangan:episode' %}">
+                <button class="primary">2</button>
+            </a>
+            <a href="{% url 'tayangan:episode' %}">
+                <button class="primary">3</button>
+            </a>
+            <a href="{% url 'tayangan:episode' %}">
+                <button class="primary">4</button>
+            </a>
+            <a href="{% url 'tayangan:episode' %}">
+                <button class="primary">5</button>
+            </a>
+            <a href="{% url 'tayangan:episode' %}">
+                <button class="primary">6</button>
+            </a>
+            <a href="{% url 'tayangan:episode' %}">
+                <button class="primary">7</button>
+            </a>
+            <a href="{% url 'tayangan:episode' %}">
+                <button class="primary">8</button>
+            </a>
+            <a href="{% url 'tayangan:episode' %}">
+                <button class="primary">9</button>
+            </a>
+            <a href="{% url 'tayangan:episode' %}">
+                <button class="primary">10</button>
+            </a>
         </div>
         <div class="film-reviews">
-            <button>Ulasan</button>
+            <a type="button" href="{% url 'ulasan:ulasan' %}">Ulasan</button>
         </div>
     </div>
 </body>
-</html>
+{% endblock content %} 
