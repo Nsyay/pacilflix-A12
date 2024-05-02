@@ -42,7 +42,9 @@ INSTALLED_APPS = [
     'r_daftar_kontributor',
     'cru_langganan',
     'rd_daftar_unduhan',
-    'rd_daftar_favorit'
+    'rd_daftar_favorit',
+    'tayangan',
+    'ulasan'
 ]
 
 MIDDLEWARE = [

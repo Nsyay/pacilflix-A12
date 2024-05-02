@@ -24,5 +24,7 @@ urlpatterns = [
     path('langganan/', include('cru_langganan.urls')),
     path('daftar_favorit/', include('rd_daftar_favorit.urls')),
     path('daftar_unduhan/', include('rd_daftar_unduhan.urls')),
-    path('authentication/', include('authentication.urls'))
+    path('authentication/', include('authentication.urls')),
+    path('tayangan/', include('tayangan.urls')),
+    path('ulasan/', include('ulasan.urls'))
 ]

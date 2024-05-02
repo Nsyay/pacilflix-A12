@@ -1,4 +1,4 @@
-{% extends 'base.html' %}
+{% extends 'base_guest.html' %}
 {% load static %}
 
 {% block meta %}
@@ -22,12 +22,12 @@
 body {
     background-color: #2d3250;
     color: #ffffff;
-    display: flex;
     justify-content: center;
     align-items: center;
     height: 100vh;
 }
 .container {
+    margin-top: 5%;
     max-width: 800px;
     padding: 40px;
     text-align: center;

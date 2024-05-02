@@ -1,5 +1,7 @@
-<!DOCTYPE html>
-<html lang="en">
+{% extends 'base_guest.html' %}
+{% load static %}
+
+{% block meta %}
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,6 +9,9 @@
     <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@400;500&display=swap" rel="stylesheet">
     <!-- <link rel="stylesheet" href="../styles/login.css"> -->
 </head>
+{% endblock meta %}
+
+{% block content %}
 <style>
     
 * {
@@ -16,13 +21,13 @@
 body {
     background-color: #2d3250;
     color: #ffffff;
-    display: flex;
     justify-content: center;
     align-items: center;
     height: 100vh;
     margin: 0;
 }
 .container {
+    margin-top: 5%;
     width: 400px; 
     padding: 30px; 
     border-radius: 10px;
@@ -127,4 +132,4 @@ body {
         }
     </script>
 </body>
-</html>
+{% endblock content %}
