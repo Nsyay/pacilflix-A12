@@ -1,5 +1,7 @@
-<!DOCTYPE html>
-<html lang="en">
+{% extends 'base.html' %}
+{% load static %}
+
+{% block meta %}
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -45,6 +47,9 @@
         }
     </style>
 </head>
+{% endblock meta %}
+
+{% block content %}
 <body>
     <div class="container">
         <h1 class="text-center mb-4">Daftar Favorit</h1>
@@ -74,4 +79,4 @@
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
-</html>
+{% endblock content %}

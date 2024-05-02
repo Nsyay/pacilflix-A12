@@ -1,5 +1,7 @@
-<!DOCTYPE html>
-<html lang="en">
+{% extends 'base.html' %}
+{% load static %}
+
+{% block meta %}
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,6 +9,9 @@
     <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@400;500&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="../styles/main.css">
 </head>
+{% endblock meta %}
+
+{% block content %}
 <body>
     <div class="container">
         <img src="logo.png" alt="" class="logo">
@@ -19,4 +24,4 @@
         </div>
     </div>
 </body>
-</html>
+{% endblock content %}
