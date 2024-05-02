@@ -7,14 +7,89 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>PacilFlix - A12</title>
     <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@400;500&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="../styles/main.css">
+    <!-- <link rel="stylesheet" href="../styles/main.css"> -->
 </head>
 {% endblock meta %}
 
 {% block content %}
+<style>
+    * {
+    font-family: 'Raleway', sans-serif;
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+body {
+    background-color: #2d3250;
+    color: #ffffff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+.container {
+    max-width: 800px;
+    padding: 40px;
+    text-align: center;
+    background-color: rgba(0, 0, 0, 0.3);
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+}
+.logo {
+    width: 100px;
+    height: 100px;
+    background-color: #fbad5a;
+    border-radius: 10px;
+    margin-bottom: 20px;
+}
+h1 {
+    font-size: 2em;
+    margin-bottom: 20px;
+    color: #fbad5a;
+}
+h2 {
+    font-size: 1.5em;
+    margin-bottom: 20px;
+    color: #9fa8c5;
+}
+p {
+    margin-bottom: 30px;
+    color: #bababa;
+}
+.button-container {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    margin-top: 20px;
+}
+.login-button, .register-button {
+    padding: 12px 20px;
+    color: #ffffff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    text-transform: uppercase;
+    font-weight: 500;
+    font-size: 1em;
+    text-decoration: none;
+    background-color: #fbad5a;
+}
+.login-button:hover, .register-button:hover {
+    background-color: #fec9ad; 
+}
+.register-button {
+    color: #fbad5a; 
+    border: 2px solid #fbad5a; 
+    background-color: transparent; 
+}
+.register-button:hover {
+    background-color: #000000; 
+}
+</style>
 <body>
     <div class="container">
-        <img src="logo.png" alt="" class="logo">
+        <!-- <img src="logo.png" alt="" class="logo"> -->
         <h1>PacilFlix - A12</h1>
         <h2>Tempat Nonton Favorit Anda</h2>
         <p>Nikmati ribuan judul film dan acara TV tanpa batas kapan saja, di mana saja.</p>
