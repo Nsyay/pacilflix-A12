@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{%judul tayangan%}</title>
+    <style>
+        body {
+            background-color: #2d3250;
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        .review-form {
+            margin-bottom: 20px;
+        }
+        .review-form label {
+            display: block;
+            margin-bottom: 10px;
+        }
+        .review-form input[type="text"],
+        .review-form input[type="number"],
+        .review-form textarea {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        .review-form input[type="submit"] {
+            background-color: #9fa8c5;
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+        .review-list {
+            list-style-type: none;
+            padding: 0;
+        }
+        .review-item {
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            padding: 10px;
+            margin-bottom: 10px;
+        }
+        .review-item .rating {
+            color: #007bff;
+        }
+
+        .form-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+        .form-row label {
+            flex: 0 0 30%; 
+            margin-right: 10px;
+            text-align: right;
+        }
+        .form-row input[type="text"],
+        .form-row input[type="number"],
+        .form-row textarea {
+            flex: 0 0 60%; 
+        }
+        label, h1, h2{
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <center><h1>Ulasan Judul Film</h1></center>
+        <div class="review-form">
+            <h2>Beri ulasan</h2>
+            <form id="reviewForm">
+                <div class="form-row">
+                    <label for="judul">Judul ulasan:</label>
+                    <input type="text" id="judul" name="judul" required>
+                </div>
+                
+                <div class="form-row">
+                    <label for="rating">Rating (1-5):</label>
+                    <input type="number" id="rating" name="rating" min="1" max="5" required>
+                </div>
+                <div class="form-row">
+                    <label for="comment">Ulasan:</label>
+                    <textarea id="comment" name="comment" rows="4" required></textarea>
+                </div>
+                <center><input type="submit" value="Submit"></center>
+            </form>
+        </div>
+
+        <div class="review-list">
+            <h2>Ulasan</h2>
+            <ul id="reviews">
+            </ul>
+        </div>
+    </div>
+
+    <script>
+        function addReview(username, rating, comment) {
+            const reviewList = document.getElementById('reviews');
+            const li = document.createElement('li');
+            li.classList.add('review-item');
+            li.innerHTML = `
+                <strong>${username}</strong> 
+                <span class="rating">(${rating}/5)</span>
+                <p>${comment}</p>
+            `;
+            reviewList.prepend(li); 
+        }
+        document.getElementById('reviewForm').addEventListener('submit', function(event) {
+            event.preventDefault(); 
+
+            const username = document.getElementById('username').value;
+            const rating = document.getElementById('rating').value;
+            const comment = document.getElementById('comment').value;
+
+            addReview(username, rating, comment);
+
+            document.getElementById('username').value = '';
+            document.getElementById('rating').value = '';
+            document.getElementById('comment').value = '';
+        });
+    </script>
+</body>
+</html>
