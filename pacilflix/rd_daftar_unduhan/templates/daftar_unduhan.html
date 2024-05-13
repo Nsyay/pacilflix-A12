@@ -44,6 +44,12 @@
             width: 100%;
             margin-top: 20px;
         }
+        h1, p{
+            color: white;
+        }
+        .modal-content {
+            background-color: #242f69; /* Dark blue modal background */
+        }
     </style>
 </head>
 {% endblock meta %}
@@ -65,7 +71,21 @@
                     <tr>
                         <td>Example Title 1</td>
                         <td>2024-04-29 12:00</td>
-                        <td><button class="btn btn-danger">Hapus</button></td>
+                        <td><button class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteFailModal">Hapus</button></td>
+                        <div class="modal fade" id="deleteFailModal" tabindex="-1" aria-labelledby="deleteFailModalLabel" aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="deleteFailModalLabel">Gagal Menghapus Tayangan Dari Daftar Unduhan</h5>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <p>Tayangan minimal harus berada di daftar unduhan selama 1 hari agar bisa dihapus.</p>
+                                    </div>
+                                    <a type="button" class="btn btn-primary" data-bs-dismiss="modal" aria-label="Close">Tutup Modal</a>
+                                </div>
+                            </div>
+                        </div>
                     </tr>
                     <!-- More rows can be added here -->
                 </tbody>
