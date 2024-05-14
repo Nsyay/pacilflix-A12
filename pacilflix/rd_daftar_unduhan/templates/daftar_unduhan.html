@@ -68,9 +68,10 @@
                     </tr>
                 </thead>
                 <tbody>
+                    {% for record in records_daftar_unduhan %}
                     <tr>
-                        <td>Example Title 1</td>
-                        <td>2024-04-29 12:00</td>
+                        <td>{{record.3}}</td>
+                        <td>{{record.2}}</td>
                         <td><button class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteFailModal">Hapus</button></td>
                         <div class="modal fade" id="deleteFailModal" tabindex="-1" aria-labelledby="deleteFailModalLabel" aria-hidden="true">
                             <div class="modal-dialog">
@@ -87,7 +88,7 @@
                             </div>
                         </div>
                     </tr>
-                    <!-- More rows can be added here -->
+                    {% endfor %}
                 </tbody>
             </table>
         </div>
