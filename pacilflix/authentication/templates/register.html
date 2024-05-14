@@ -1,12 +1,87 @@
-<!DOCTYPE html>
-<html lang="en">
+{% extends 'base_guest.html' %}
+{% load static %}
+
+{% block meta %}
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>PacilFlix - A12</title>
     <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@400;500&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="../styles/register.css">
+    <!-- <link rel="stylesheet" href="../styles/register.css"> -->
 </head>
+{% endblock meta %}
+
+{% block content %}
+<style>
+    * {
+    font-family: 'Raleway', sans-serif;
+    box-sizing: border-box;
+}
+body {
+    background-color: #2d3250;
+    color: #ffffff;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+}
+.container {
+    margin-top: 5%;
+    width: 400px; 
+    padding: 30px; 
+    border-radius: 10px;
+    background: #424769;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+.button {
+    width: 100%;
+    padding: 15px; 
+    margin-top: 20px; 
+    background-color: #fbad5a;
+    color: #ffffff;
+    border: none;
+    border-radius: 8px; 
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+.button:hover {
+    background-color: #e8976c;
+}
+input[type="text"], input[type="password"] {
+    width: 100%;
+    padding: 12px; 
+    margin-top: 15px; 
+    border: 2px solid #674769;
+    border-radius: 8px; 
+    background: transparent;
+    color: #ffffff;
+}
+input[type="text"]::placeholder,
+input[type="password"]::placeholder {
+    color: #a5a5a5; 
+    font-weight: 500;
+}
+h2 {
+    text-align: center;
+    font-weight: 600; 
+    font-size: 1.5em; 
+    color: #ffffff; 
+}
+.login-heading {
+    text-align: center;
+    font-weight: 600; 
+    font-size: 1.5em; 
+    color: #9fa8c5; 
+}
+.login-heading {
+    margin-bottom: 30px; 
+}
+a{
+    text-decoration: underline;
+    color:#fbad5a;
+    font-size: 1em; 
+}
+</style>
 <body>
     <div class="container">
         <h2>PacilFlix - A12</h2>
@@ -15,7 +90,7 @@
         <input type="password" placeholder="Password">
         <input type="text" placeholder="Negara Asal">
         <button class="button">DAFTAR</button>
-        <p class="Login">Sudah memiliki akun? <a href="login.html">Login</a></p>
+        <p class="Login">Sudah memiliki akun? <a href="{% url 'authentication:login' %}">Login</a></p>
     </div>
 </body>
-</html>
+{% endblock content %}

@@ -1,5 +1,7 @@
-<!DOCTYPE html>
-<html lang="en">
+{% extends 'base.html' %}
+{% load static %}
+
+{% block meta %}
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -60,22 +62,45 @@
         }
     </style>
 </head>
+{% endblock meta %}
+
+{% block content %}
 <body>
     <div class="container">
         <div class="film-details">
             <img src="https://cdn.discordapp.com/attachments/1025971182853439540/1235430001655021608/vector-illustration-player-movie-watch-series-play-button-cinema-video-hosting-entertainment-pause-player-view-screen-online-app-website-film-concept-vector-line-icon-business_748571-117.png?ex=66345759&is=663305d9&hm=ee1992d08cfcd1d365756aabf7ca948fbaebe266a5716ad2b1ef8c6aeb2f98a2&" alt="" srcset="">
             <h3 style="color: white;">Other Episodes</h3>
             <div class="film-buttons">
-                <button class="primary">1</button>
-                <button class="primary">2</button>
-                <button class="primary">3</button>
-                <button class="primary">4</button>
-                <button class="primary">5</button>
-                <button class="primary">6</button>
-                <button class="primary">7</button>
-                <button class="primary">8</button>
-                <button class="primary">9</button>
-                <button class="primary">10</button>
+                <a href="{% url 'tayangan:episode' %}">
+                    <button class="primary">1</button>
+                </a>
+                <a href="{% url 'tayangan:episode' %}">
+                    <button class="primary">2</button>
+                </a>
+                <a href="{% url 'tayangan:episode' %}">
+                    <button class="primary">3</button>
+                </a>
+                <a href="{% url 'tayangan:episode' %}">
+                    <button class="primary">4</button>
+                </a>
+                <a href="{% url 'tayangan:episode' %}">
+                    <button class="primary">5</button>
+                </a>
+                <a href="{% url 'tayangan:episode' %}">
+                    <button class="primary">6</button>
+                </a>
+                <a href="{% url 'tayangan:episode' %}">
+                    <button class="primary">7</button>
+                </a>
+                <a href="{% url 'tayangan:episode' %}">
+                    <button class="primary">8</button>
+                </a>
+                <a href="{% url 'tayangan:episode' %}">
+                    <button class="primary">9</button>
+                </a>
+                <a href="{% url 'tayangan:episode' %}">
+                    <button class="primary">10</button>
+                </a>
             </div>
             <h1>Judul Series</h1>
             <h2>Sub judul</h2>
@@ -85,4 +110,4 @@
         </div>
     </div>
 </body>
-</html>
+{% endblock content %} 

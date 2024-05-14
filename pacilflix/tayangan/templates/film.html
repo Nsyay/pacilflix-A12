@@ -1,5 +1,7 @@
-<!DOCTYPE html>
-<html lang="en">
+{% extends 'base.html' %}
+{% load static %}
+
+{% block meta %}
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,6 +10,7 @@
         body {
             background-color: #2d3250;
             font-family: Arial, sans-serif;
+            color: #fff;
             margin: 0;
             padding: 0;
         }
@@ -45,9 +48,9 @@
         }
         .film-buttons button.favorite {
             background-color: #ffc107;
-            color: #212529;
+            color: #fff;
         }
-        .film-reviews button {
+        .film-reviews a {
             padding: 10px 20px;
             cursor: pointer;
             border: none;
@@ -58,8 +61,14 @@
         h1, p{
             color: white;
         }
+        .modal-content {
+            background-color: #242f69; /* Dark blue modal background */
+        }
     </style>
 </head>
+{% endblock meta %}
+
+{% block content %}
 <body>
     <div class="container">
         <div class="film-details">
@@ -78,12 +87,74 @@
         </div>
         <div class="film-buttons">
             <button class="primary">Tonton</button>
-            <button class="primary">Unduh</button>
-            <button class="favorite">Favorit</button>
+            <button type="button" class="primary" data-bs-toggle="modal" data-bs-target="#downloadModal">
+                Unduh
+            </button>
+        
+            <!-- Modal -->
+            <div class="modal fade" id="downloadModal" tabindex="-1" aria-labelledby="downloadModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="downloadModalLabel">Sukses Menambahkan Tayangan ke Daftar Unduhan</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body" id="modalBody">
+                            <!-- Text will be inserted here by JavaScript -->
+                        </div>
+                        <a type="button" class="btn btn-primary" href="{% url 'daftar_unduhan:daftar_unduhan' %}">Menuju Daftar Unduhan</a>
+                    </div>
+                </div>
+            </div>
+        
+            <script>
+                document.addEventListener('DOMContentLoaded', function () {
+                    const dateToday = new Date();
+                    const dateInSevenDays = new Date(dateToday);
+                    dateInSevenDays.setDate(dateToday.getDate() + 7);
+        
+                    const options = { year: 'numeric', month: 'long', day: 'numeric' };
+                    const formattedToday = dateToday.toLocaleDateString('id-ID', options);
+                    const formattedSevenDays = dateInSevenDays.toLocaleDateString('id-ID', options);
+        
+                    const modalBodyText = `Selamat! Anda telah berhasil mengunduh [Judul Tayangan] dan akan berlaku hingga ${formattedSevenDays}. Cek informasi selengkapnya pada halaman daftar unduhan.`;
+                    document.getElementById('modalBody').textContent = modalBodyText;
+                });
+            </script>
+        
+            <button type="button" class="favorite" data-bs-toggle="modal" data-bs-target="#favoriteModal">
+                Favorit
+            </button>
+
+            <div class="modal fade" id="favoriteModal" tabindex="-1" aria-labelledby="favoriteModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="favoriteModalLabel">Tambah ke Daftar Favorit</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <form>
+                                <div class="mb-3">
+                                    <label for="favoriteListDropdown" class="form-label">Judul Daftar Favorit:</label>
+                                    <select class="form-select" id="favoriteListDropdown">
+                                        <option selected>Pilih Daftar Favorit</option>
+                                        <option value="1">Daftar 1</option>
+                                        <option value="2">Daftar 2</option>
+                                    </select>
+                                </div>
+                                <a type="button" class="btn btn-primary" href="{% url 'daftar_favorit:daftar_favorit' %}">Tambah</a>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
         </div>
         <div class="film-reviews">
-            <button>Ulasan</button>
+            <a type="button" href="{% url 'ulasan:ulasan' %}">Ulasan</button>
         </div>
     </div>
 </body>
-</html>
+{% endblock content %} 

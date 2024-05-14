@@ -1,13 +1,113 @@
-<!DOCTYPE html>
-<html lang="en">
+{% extends 'base_guest.html' %}
+{% load static %}
+
+{% block meta %}
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>PacilFlix - A12</title>
     <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@400;500&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="../styles/login.css">
+    <!-- <link rel="stylesheet" href="../styles/login.css"> -->
 </head>
+{% endblock meta %}
+
+{% block content %}
+<style>
+    
+* {
+    font-family: 'Raleway', sans-serif;
+    box-sizing: border-box;
+}
+body {
+    background-color: #2d3250;
+    color: #ffffff;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+}
+.container {
+    margin-top: 5%;
+    width: 400px; 
+    padding: 30px; 
+    border-radius: 10px;
+    background: #424769;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+.button {
+    width: 100%;
+    padding: 15px; 
+    margin-top: 20px;
+    background-color: #fbad5a;
+    color: #ffffff;
+    border: none;
+    border-radius: 8px; 
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+.button:hover {
+    background-color: #e8976c;
+}
+input[type="text"], input[type="password"] {
+    width: 100%;
+    padding: 12px; 
+    margin-top: 15px;
+    border: 2px solid #674769;
+    border-radius: 8px; 
+    background: transparent;
+    color: #ffffff;
+}
+input[type="text"]::placeholder,
+input[type="password"]::placeholder {
+    color: #a5a5a5; 
+    font-weight: 500;
+}
+.error {
+    color: #ff633c;
+    font-size: 1em; 
+    height: 25px; 
+    text-align: center;
+    margin-top: 15px; 
+}
+h2, .login-heading {
+    text-align: center;
+    font-weight: 600; 
+    font-size: 1.5em; 
+}
+.login-heading {
+    margin-bottom: 30px; 
+    color: #bababa;
+    font-weight: 700;
+}
+a{
+    text-decoration: underline;
+    color:#fbad5a;
+    font-size: 1em; 
+}
+body {
+            font-family: 'Raleway', sans-serif;
+            color: #ffffff;
+            margin: 0;
+            padding: 0;
+        }
+        .navbar {
+            background-color: #242f69; /* Dark blue background */
+        }
+        .navbar-brand, .nav-link {
+            color: #ffffff !important; /* Ensures text is white */
+        }
+        .nav-link:hover, .btn-outline-success:hover {
+            background-color: #fb917a; /* Orange color on hover */
+            border-radius: 5px;
+        }
+        .btn-outline-success {
+            color: #ffffff;
+            border-color: #fb917a; /* Orange border for the logout button */
+        }
+
+</style>
 <body>
+    <include src="navbar_guest.html"></include>
     <div class="container">
         <h2>PacilFlix - A12</h2>
         <p class="login-heading">FORM LOGIN</p>
@@ -15,7 +115,8 @@
         <input type="password" id="password" placeholder="Password">
         <button class="button" onclick="login()">MASUK</button>
         <div class="error" id="login-error"></div>
-        <p class="register-link">Belum memiliki akun? <a href="register.html">Registrasi</a></p>
+        <p class="register-link">Belum memiliki akun? <a href="{% url 'authentication:register' %}">Registrasi</a></p>
+
     </div>
 
     <script>
@@ -31,4 +132,4 @@
         }
     </script>
 </body>
-</html>
+{% endblock content %}

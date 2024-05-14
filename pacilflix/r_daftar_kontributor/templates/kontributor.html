@@ -1,65 +1,70 @@
-<!DOCTYPE html>
-<html lang="en">
-<meta charset="UTF-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Daftar Kontributor Pacilflix</title>
-<link href="https://fonts.googleapis.com/css2?family=Open+Sans&display=swap" rel="stylesheet">
-<style>
-    body {
-        font-family: 'Open Sans', sans-serif;
-        margin: 0;
-        padding: 20px;
-        background-color: #2d3250;
-        color: #ffffff;
-    }
-    h1 {
-        text-align: center;
-        margin-bottom: 20px;
-    }
-    .container {
-        max-width: 800px;
-        margin: 0 auto;
-    }
-    .filter {
-        margin-bottom: 20px;
-        text-align: center;
-    }
-    .contributors {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-        gap: 20px;
-    }
-    .contributor {
-        /* border: 1px solid #ccc; */
-        background-color: #424769;
-        border-radius: 30px;
-        padding: 10px;
-        text-align: center;
-    }
-    .gender {
-        display: inline-block;
-        padding: 5px 10px;
-        border-radius: 20px;
-        background-color: #fbad5a;
-        margin-top: 10px;
-        margin-bottom: 5px;
-    }
-    .nationality {
-        display: inline-block;
-        padding: 5px 10px;
-        border-radius: 20px;
-        background-color: #9fa8c5;
-        margin-top: 10px;
-        margin-bottom: 5px;
-    }
-    .filter select {
-        color: #ffffff;
-        background-color: #424769;
-    }
+{% extends 'base.html' %}
+{% load static %}
 
-</style>
+{% block meta %}
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Daftar Kontributor Pacilflix</title>
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Open Sans', sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #2d3250;
+            color: #ffffff;
+        }
+        h1 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        .filter {
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        .contributors {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+        }
+        .contributor {
+            /* border: 1px solid #ccc; */
+            background-color: #424769;
+            border-radius: 30px;
+            padding: 10px;
+            text-align: center;
+        }
+        .gender {
+            display: inline-block;
+            padding: 5px 10px;
+            border-radius: 20px;
+            background-color: #fbad5a;
+            margin-top: 10px;
+            margin-bottom: 5px;
+        }
+        .nationality {
+            display: inline-block;
+            padding: 5px 10px;
+            border-radius: 20px;
+            background-color: #9fa8c5;
+            margin-top: 10px;
+            margin-bottom: 5px;
+        }
+        .filter select {
+            color: #ffffff;
+            background-color: #424769;
+        }
+    </style>
 </head>
+{% endblock meta %}
+
+{% block content %}
 <body>
 <div class="container">
     <h1>Daftar Kontributor Pacilflix</h1>
@@ -114,4 +119,4 @@
     });
 </script>
 </body>
-</html>
+{% endblock content %} 
