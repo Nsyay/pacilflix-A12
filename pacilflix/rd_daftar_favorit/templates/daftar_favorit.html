@@ -70,12 +70,13 @@
                     </tr>
                 </thead>
                 <tbody>
+                    {% for record in records_daftar_favorit %}
                     <tr class="clickable-row" data-href="{% url 'daftar_favorit:tayangan_favorit' %}">
-                        <td>Example Title 1</td>
-                        <td>2024-04-29 12:00</td>
+                        <td>{{record.2}}</td>
+                        <td>{{record.0}}</td>
                         <td><button class="btn btn-danger">Hapus</button></td>
                     </tr>
-                    <!-- More rows can be added here with appropriate data-href values -->
+                    {% endfor %}
                 </tbody>
             </table>
         </div>
