@@ -55,136 +55,65 @@
   <h2 class="mb-3">Top 10 Movies</h2>
   <div class="row">
     <div class="col-md-6">
-      <div class="card">
-        <div class="card-body">
-          <h4>1</h4>
-          <h5 class="card-title">Judul</h5>
-          <p class="card-text">Sinopsis lorem ipsum folor sit amet</p>
-          <p class="card-text"><a href="{% url 'tayangan:trailer' %}">lihat trailer</a> - tanggal rilis trailer</p>
-          <p class="card-text">xx views</p>
-          <a href="{% url 'tayangan:film' %}" class="btn btn-primary">Tonton</a> 
-        </div>
+      {% for item in tayangan_first_half %}
+      <div class="card mb-3">
+          <div class="card-body">
+              <h4>{{ forloop.counter }}</h4>
+              <h5 class="card-title">{{ item.0 }}</h5>
+              <p class="card-text">{{ item.1 }}</p>
+              <p class="card-text"><a href="{{ item.2 }}">lihat trailer</a> - {{ item.3 }}</p>
+              <p class="card-text">{{ item.views }} views</p>
+              <a href="{% url 'tayangan:film' %}" class="btn btn-primary">Tonton</a>
+          </div>
       </div>
-      <div class="card">
-        <div class="card-body">
-          <h4>2</h4>
-          <h5 class="card-title">Judul</h5>
-          <p class="card-text">Sinopsis lorem ipsum folor sit amet</p>
-          <p class="card-text"><a href="{% url 'tayangan:trailer' %}">lihat trailer</a> - tanggal rilis trailer</p>
-          <p class="card-text">xx views</p>
-          <a href="{% url 'tayangan:film' %}" class="btn btn-primary">Tonton</a>  
-        </div>
-      </div>
-      <div class="card">
-        <div class="card-body">
-          <h4>3</h4>
-          <h5 class="card-title">Judul</h5>
-          <p class="card-text">Sinopsis lorem ipsum folor sit amet</p>
-          <p class="card-text"><a href="{% url 'tayangan:trailer' %}">lihat trailer</a> - tanggal rilis trailer</p>
-          <p class="card-text">xx views</p>
-          <a href="{% url 'tayangan:film' %}" class="btn btn-primary">Tonton</a> 
-        </div>
-      </div>
-      <div class="card">
-        <div class="card-body">
-          <h4>4</h4>
-          <h5 class="card-title">Judul</h5>
-          <p class="card-text">Sinopsis lorem ipsum folor sit amet</p>
-          <p class="card-text"><a href="{% url 'tayangan:trailer' %}">lihat trailer</a> - tanggal rilis trailer</p>
-          <p class="card-text">xx views</p>
-          <a href="{% url 'tayangan:film' %}" class="btn btn-primary">Tonton</a> 
-        </div>
-      </div>
-      <div class="card">
-        <div class="card-body">
-          <h4>5</h4>
-          <h5 class="card-title">Judul</h5>
-          <p class="card-text">Sinopsis lorem ipsum folor sit amet</p>
-          <p class="card-text"><a href="{% url 'tayangan:trailer' %}">lihat trailer</a> - tanggal rilis trailer</p>
-          <p class="card-text">xx views</p>
-          <a href="{% url 'tayangan:film' %}" class="btn btn-primary">Tonton</a> 
-        </div>
-      </div>
+      {% endfor %}
     </div>
     <div class="col-md-6">
+      {% for item in tayangan_second_half %}
       <div class="card mb-3">
-        <div class="card-body">
-          <h4>6</h4>
-          <h5 class="card-title">Judul</h5>
-          <p class="card-text">Sinopsis lorem ipsum folor sit amet</p>
-          <p class="card-text"><a href="{% url 'tayangan:trailer' %}">lihat trailer</a> - tanggal rilis trailer</p>
-          <p class="card-text">xx views</p>
-          <a href="{% url 'tayangan:film' %}" class="btn btn-primary">Tonton</a> 
-        </div>
+          <div class="card-body">
+              <h4>{{ forloop.counter0 |add:6 }}</h4>
+              <h5 class="card-title">{{ item.0 }}</h5>
+              <p class="card-text">{{ item.1 }}</p>
+              <p class="card-text"><a href="{{ item.2 }}">lihat trailer</a> - {{ item.3 }}</p>
+              <p class="card-text">{{ item.views }} views</p>
+              <a href="{% url 'tayangan:film' %}" class="btn btn-primary">Tonton</a>
+          </div>
       </div>
-      <div class="card mb-3">
-        <div class="card-body">
-          <h4>7</h4>
-          <h5 class="card-title">Judul</h5>
-          <p class="card-text">Sinopsis lorem ipsum folor sit amet</p>
-          <p class="card-text"><a href="{% url 'tayangan:trailer' %}">lihat trailer</a> - tanggal rilis trailer</p>
-          <p class="card-text">xx views</p>
-          <a href="{% url 'tayangan:film' %}" class="btn btn-primary">Tonton</a> 
-        </div>
-      </div>
-      <div class="card mb-3">
-        <div class="card-body">
-          <h4>8</h4>
-          <h5 class="card-title">Judul</h5>
-          <p class="card-text">Sinopsis lorem ipsum folor sit amet</p>
-          <p class="card-text"><a href="{% url 'tayangan:trailer' %}">lihat trailer</a> - tanggal rilis trailer</p>
-          <p class="card-text">xx views</p>
-          <a href="{% url 'tayangan:film' %}" class="btn btn-primary">Tonton</a> 
-        </div>
-      </div>
-      <div class="card mb-3">
-        <div class="card-body">
-          <h4>9</h4>
-          <h5 class="card-title">Judul</h5>
-          <p class="card-text">Sinopsis lorem ipsum folor sit amet</p>
-          <p class="card-text"><a href="{% url 'tayangan:trailer' %}">lihat trailer</a> - tanggal rilis trailer</p>
-          <p class="card-text">xx views</p>
-          <a href="{% url 'tayangan:film' %}" class="btn btn-primary">Tonton</a> 
-        </div>
-      </div>
-      <div class="card mb-3">
-        <div class="card-body">
-          <h4>10</h4>
-          <h5 class="card-title">Judul</h5>
-          <p class="card-text">Sinopsis lorem ipsum folor sit amet</p>
-          <p class="card-text"><a href="{% url 'tayangan:trailer' %}">lihat trailer</a> - tanggal rilis trailer</p>
-          <p class="card-text">xx views</p>
-          <a href="{% url 'tayangan:film' %}" class="btn btn-primary">Tonton</a>  
-        </div>
-      </div>
+      {% endfor %}
     </div>
-  </div>
+    </div>
+
 
   <h2 class="mt-5 mb-3">Film</h2>
   <div class="row">
     <div class="col-md-12">
+      {% for film in films %}
       <div class="card">
         <div class="card-body">
-          <h5 class="card-title">Judul</h5>
-          <p class="card-text">Lorem ipsum dolor sit amet.</p>
-          <p class="card-text"><a href="{% url 'tayangan:trailer' %}">Lihat trailer</a> - Tanggal rilis trailer</p>
+          <h5 class="card-title">{{ film.0 }}</h5>
+          <p class="card-text">{{ film.1 }}</p>
+          <p class="card-text"><a href="{{ film.2 }}">Lihat trailer</a> - {{ film.3 }}</p>
           <a href="{% url 'tayangan:film' %}" class="btn btn-primary">Tonton</a> 
         </div>
       </div>
+      {% endfor %}
     </div>
   </div>
   
   <h2 class="mt-5 mb-3">Series</h2>
   <div class="row">
     <div class="col-md-12">
+      {% for series in seriess %}
       <div class="card">
         <div class="card-body">
-          <h5 class="card-title">Judul</h5>
-          <p class="card-text">Lorem ipsum dolor sit amet.</p>
-          <p class="card-text"><a href="{% url 'tayangan:trailer' %}">Lihat trailer</a> - Tanggal rilis trailer</p>
+          <h5 class="card-title">{{ series.0 }}</h5>
+          <p class="card-text">{{ series.1 }}</p>
+          <p class="card-text"><a href="{{ series.2 }}">Lihat trailer</a> - {{ series.3 }}</p>
           <a href="{% url 'tayangan:series' %}" class="btn btn-primary">Tonton</a> 
         </div>
       </div>
+      {% endfor %}
     </div>
   </div>
 </div>
