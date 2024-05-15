@@ -32,18 +32,6 @@
             background-color: #fb917a; 
             border-color: #f98570; 
         }
-        footer {
-            background-color: #162769; 
-            color: #ffffff;
-            text-align: center;
-            padding: 10px 0;
-            position: fixed;
-            bottom: 0;
-            left: 0;
-            right: 0; 
-            width: 100%;
-            margin-top: 20px;
-        }
         h1, p{
             color: white;
         }
@@ -71,13 +59,13 @@
                     {% for record in records_daftar_unduhan %}
                     <tr>
                         <td>{{record.3}}</td>
-                        <td>{{record.2}}</td>
-                        <td><button class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteFailModal">Hapus</button></td>
-                        <div class="modal fade" id="deleteFailModal" tabindex="-1" aria-labelledby="deleteFailModalLabel" aria-hidden="true">
+                        <td>{{record.2|date:"Y-m-d H:i:s"}}</td>
+                        <td><button class="btn btn-danger" data-timestamp="{{ record.2|date:'Y-m-d H:i:s' }}" data-id="{{ record.0 }}" onclick="deleteItem(this)">Hapus</button></td>
+                        <div class="modal fade" id="infoModal" tabindex="-1" aria-labelledby="infoModalLabel" aria-hidden="true">
                             <div class="modal-dialog">
                                 <div class="modal-content">
                                     <div class="modal-header">
-                                        <h5 class="modal-title" id="deleteFailModalLabel">Gagal Menghapus Tayangan Dari Daftar Unduhan</h5>
+                                        <h5 class="modal-title" id="infoModalLabel">Gagal Menghapus Tayangan Dari Daftar Unduhan</h5>
                                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                     </div>
                                     <div class="modal-body">
@@ -92,11 +80,35 @@
                 </tbody>
             </table>
         </div>
-        <footer>
-            <p>❤ Thanks for downloading!</p>
-        </footer>
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+
+    <script>
+    function deleteItem(buttonElement) {
+        var timestamp = buttonElement.getAttribute('data-timestamp');
+        var id_tayangan = buttonElement.getAttribute('data-id');
+        fetch(`/daftar_unduhan/hapus_unduhan?timestamp=${timestamp}&id_tayangan=${id_tayangan}`)
+            .then(response => {
+                if (response.ok) {
+                    // If the response is OK (status 200), reload the page
+                    window.location.reload();
+                } else {
+                    // If there's an error (e.g., status 400), parse the JSON to get the error message and show the modal
+                    response.json().then(data => {
+                        $('#infoModal').modal('show');
+                    });
+                }
+            })
+            .catch(error => {
+                // Handle network errors or issues communicating with the server
+                $('#modalMessage').text('Deletion process encountered an error.');
+                $('#infoModal').modal('show');
+            });
+    }
+    </script>
 </body>
 {% endblock content %}
