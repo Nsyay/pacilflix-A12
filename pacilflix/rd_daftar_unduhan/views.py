@@ -13,7 +13,6 @@ def daftar_unduhan(request):
             f'SELECT * FROM TAYANGAN_TERUNDUH WHERE username = %s', [username])
         records_daftar_unduhan = cursor.fetchall()
         for i in range(len(records_daftar_unduhan)):
-            print(records_daftar_unduhan[i][2])
             cursor.execute(
                 f'SELECT judul FROM TAYANGAN WHERE id = \'{records_daftar_unduhan[i][0]}\'' )
             records_daftar_unduhan[i] = records_daftar_unduhan[i] + cursor.fetchone()
