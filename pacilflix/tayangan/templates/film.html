@@ -98,7 +98,7 @@
         </div>        
         <div class="film-buttons">
             <button class="primary">Tonton</button>
-            <button type="button" class="primary" data-bs-toggle="modal" data-bs-target="#downloadModal">
+            <button type="button" class="primary" onclick="downloadTayangan('{{ film_details.id_tayangan }}')" data-bs-toggle="modal" data-bs-target="#downloadModal">
                 Unduh
             </button>
         
@@ -113,7 +113,7 @@
                         <div class="modal-body" id="modalBody">
                             <!-- Text will be inserted here by JavaScript -->
                         </div>
-                        <a type="button" class="btn btn-primary" href="{% url 'tayangan:insert_unduhan' %}?id_tayangan={{ film_details.id_tayangan }}">Menuju Daftar Unduhan</a>
+                        <a type="button" class="btn btn-primary" href="{% url 'tayangan:go_to_unduhan' %}">Menuju Daftar Unduhan</a>
                     </div>
                 </div>
             </div>
@@ -138,6 +138,21 @@
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
 
 <script>
+    function downloadTayangan(idTayangan) {
+        fetch("{% url 'tayangan:insert_unduhan' %}?id_tayangan=" + idTayangan, {
+            method: 'GET',
+            headers: {
+                'X-CSRFToken': '{{ csrf_token }}',
+            },
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.status === 'success') {
+            }
+        })
+        .catch(error => console.error('Error:', error));
+    }
+
     document.addEventListener('DOMContentLoaded', function () {
         const dateToday = new Date();
         const dateInSevenDays = new Date(dateToday);

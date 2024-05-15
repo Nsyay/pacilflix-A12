@@ -4,6 +4,7 @@ from django.db import connection
 from django.contrib.auth.decorators import login_required
 from django.http import JsonResponse
 from datetime import datetime
+from django.http import HttpResponse
 
 def execute_query(query):
     with connection.cursor() as cursor:
@@ -227,6 +228,9 @@ def insert_unduhan(request):
             f'INSERT INTO TAYANGAN_TERUNDUH VALUES (\'{id_tayangan}\', \'{username}\', \'{timestamp}\')')
         
     connection.commit()
+    return JsonResponse({'status': 'success'})
+
+def go_to_unduhan(request):
     return redirect('daftar_unduhan:daftar_unduhan')
 
 def list_favorit(request):
