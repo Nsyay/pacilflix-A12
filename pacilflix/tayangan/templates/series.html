@@ -125,7 +125,7 @@
         </div>
 
         <div class="film-buttons">
-            <button type="button" class="primary" data-bs-toggle="modal" data-bs-target="#downloadModal">
+            <button type="button" class="primary" onclick="downloadTayangan('{{ film_details.id_tayangan }}')" data-bs-toggle="modal" data-bs-target="#downloadModal">
                 Unduh
             </button>
         
@@ -166,6 +166,21 @@
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
 
 <script>
+    function downloadTayangan(idTayangan) {
+        fetch("{% url 'tayangan:insert_unduhan' %}?id_tayangan=" + idTayangan, {
+            method: 'GET',
+            headers: {
+                'X-CSRFToken': '{{ csrf_token }}',
+            },
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.status === 'success') {
+            }
+        })
+        .catch(error => console.error('Error:', error));
+    }
+
     document.addEventListener('DOMContentLoaded', function () {
         const dateToday = new Date();
         const dateInSevenDays = new Date(dateToday);
