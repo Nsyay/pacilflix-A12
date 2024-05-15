@@ -12,5 +12,6 @@ urlpatterns = [
     path('trailer_guest/', trailer_guest, name='trailer_guest'),
     path('insert_unduhan/', insert_unduhan, name='insert_unduhan'),
     path('list_favorit/', list_favorit, name='list_favorit'),
-    path('insert_favorit', insert_favorit, name='insert_favorit')
+    path('insert_favorit/', insert_favorit, name='insert_favorit'),
+    path('go_to_unduhan/', go_to_unduhan, name='go_to_unduhan')
 ]
