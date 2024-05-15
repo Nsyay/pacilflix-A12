@@ -1,5 +1,5 @@
 import random
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.db import connection
 from django.contrib.auth.decorators import login_required
 from django.http import JsonResponse
@@ -92,6 +92,7 @@ def film(request, film_id):
                 'sutradara': director,
                 'pemain' : pemain,
                 'penulis' : penulis,
+                'id_tayangan' : film_id
             }
 
     return render(request, 'film.html', {'film_details': film_details})
@@ -162,6 +163,7 @@ def series(request, series_id):
                 'sutradara': director,
                 'pemain' : pemain,
                 'penulis' : penulis,
+                'id_tayangan' : series_id
             }
 
     return render(request, 'series.html', {'series_details': series_details})
@@ -217,7 +219,7 @@ def trailer_guest(request):
 
 def insert_unduhan(request):
     username = request.COOKIES.get('username')
-    id_tayangan = '12345678-1234-5678-1234-567812345000'
+    id_tayangan = request.GET.get('id_tayangan')
     timestamp = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
 
     with connection.cursor() as cursor:
