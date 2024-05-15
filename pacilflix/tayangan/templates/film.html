@@ -72,19 +72,30 @@
 <body>
     <div class="container">
         <div class="film-details">
-            <img src="https://cdn.discordapp.com/attachments/1110202051327176705/1235413589427224637/enola-holmes-sampaikan-pesan-feminisme-dengan-adegan-riil-1v9q4toXr2.png?ex=66344810&is=6632f690&hm=557b6166f15a9caee100567bf9a295dd505b6ade1c5cf32614849b14a351a647&" alt="" srcset="">
-            <h1>Judul Film</h1>
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed eget quam eu elit finibus interdum.</p>
+            <h1>{{ film_details.judul }}</h1>
+            <p>{{ film_details.sinopsis }}</p>
             <br>
-            <p>Tanggal Rilis: 2024-05-02</p>
-            <p>Genre: Action, Adventure</p>
-            <p>Asal Negara: USA</p>
-            <p>Durasi: 120 mins</p>
+            <p>Tanggal Rilis: {{ film_details.release_date_film }}</p>
+            <p>Genre: 
+                {% for genre in film_details.genres %}
+                    {{ genre }}{% if not forloop.last %}, {% endif %}
+                {% endfor %}
+            </p>
+            <p>Asal Negara: {{ film_details.asal_negara }}</p>
+            <p>Durasi: {{ film_details.durasi_film }} mins</p>
             <p>Rating: 4.5/5</p>
-            <p>Pemain: Actor 1, Actor 2, Actor 3</p>
-            <p>Penulis Skenario: Writer 1, Writer 2</p>
-            <p>Sutradara: Director Name</p>
-        </div>
+            <p>Pemain: 
+                {% for pemain in film_details.pemain %}
+                    {{ pemain }}{% if not forloop.last %}, {% endif %}
+                {% endfor %}
+            </p>
+            <p>Penulis Skenario:
+                {% for penulis in film_details.penulis %}
+                    {{ penulis }}{% if not forloop.last %}, {% endif %}
+                {% endfor %}
+            </p>
+            <p>Sutradara: {{ film_details.sutradara }}</p>
+        </div>        
         <div class="film-buttons">
             <button class="primary">Tonton</button>
             <button type="button" class="primary" data-bs-toggle="modal" data-bs-target="#downloadModal">
