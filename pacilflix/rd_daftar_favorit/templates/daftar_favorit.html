@@ -71,7 +71,7 @@
                 </thead>
                 <tbody>
                     {% for record in records_daftar_favorit %}
-                    <tr class="clickable-row" data-href="{% url 'daftar_favorit:tayangan_favorit' %}">
+                    <tr class="clickable-row" data-href="{% url 'daftar_favorit:tayangan_favorit' %}?timestamp={{ record.0 }}">
                         <td>{{record.2}}</td>
                         <td>{{record.0}}</td>
                         <td><button class="btn btn-danger">Hapus</button></td>
