@@ -102,53 +102,14 @@
                         <div class="modal-body" id="modalBody">
                             <!-- Text will be inserted here by JavaScript -->
                         </div>
-                        <a type="button" class="btn btn-primary" href="{% url 'daftar_unduhan:daftar_unduhan' %}">Menuju Daftar Unduhan</a>
+                        <a type="button" class="btn btn-primary" href="{% url 'tayangan:insert_unduhan' %}?id_tayangan={{ record.0 }}">Menuju Daftar Unduhan</a>
                     </div>
                 </div>
             </div>
         
-            <script>
-                document.addEventListener('DOMContentLoaded', function () {
-                    const dateToday = new Date();
-                    const dateInSevenDays = new Date(dateToday);
-                    dateInSevenDays.setDate(dateToday.getDate() + 7);
-        
-                    const options = { year: 'numeric', month: 'long', day: 'numeric' };
-                    const formattedToday = dateToday.toLocaleDateString('id-ID', options);
-                    const formattedSevenDays = dateInSevenDays.toLocaleDateString('id-ID', options);
-        
-                    const modalBodyText = `Selamat! Anda telah berhasil mengunduh [Judul Tayangan] dan akan berlaku hingga ${formattedSevenDays}. Cek informasi selengkapnya pada halaman daftar unduhan.`;
-                    document.getElementById('modalBody').textContent = modalBodyText;
-                });
-            </script>
-        
-            <button type="button" class="favorite" data-bs-toggle="modal" data-bs-target="#favoriteModal">
+            <button type="button" class="favorite" onclick="loadModalFavorit()">
                 Favorit
             </button>
-
-            <div class="modal fade" id="favoriteModal" tabindex="-1" aria-labelledby="favoriteModalLabel" aria-hidden="true">
-                <div class="modal-dialog">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title" id="favoriteModalLabel">Tambah ke Daftar Favorit</h5>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                        </div>
-                        <div class="modal-body">
-                            <form>
-                                <div class="mb-3">
-                                    <label for="favoriteListDropdown" class="form-label">Judul Daftar Favorit:</label>
-                                    <select class="form-select" id="favoriteListDropdown">
-                                        <option selected>Pilih Daftar Favorit</option>
-                                        <option value="1">Daftar 1</option>
-                                        <option value="2">Daftar 2</option>
-                                    </select>
-                                </div>
-                                <a type="button" class="btn btn-primary" href="{% url 'daftar_favorit:daftar_favorit' %}">Tambah</a>
-                            </form>
-                        </div>
-                    </div>
-                </div>
-            </div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
         </div>
@@ -157,4 +118,79 @@
         </div>
     </div>
 </body>
+
+<!-- Load jQuery first -->
+<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+<!-- Then Popper.js -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+<!-- Then Bootstrap's JavaScript -->
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const dateToday = new Date();
+        const dateInSevenDays = new Date(dateToday);
+        dateInSevenDays.setDate(dateToday.getDate() + 7);
+
+        const options = { year: 'numeric', month: 'long', day: 'numeric' };
+        const formattedToday = dateToday.toLocaleDateString('id-ID', options);
+        const formattedSevenDays = dateInSevenDays.toLocaleDateString('id-ID', options);
+
+        const modalBodyText = `Selamat! Anda telah berhasil mengunduh [Judul Tayangan] dan akan berlaku hingga ${formattedSevenDays}. Cek informasi selengkapnya pada halaman daftar unduhan.`;
+        document.getElementById('modalBody').textContent = modalBodyText;
+    });
+
+    function loadModalFavorit() {
+        fetch('/tayangan/list_favorit/')
+        .then(response => response.json())
+        .then(data => {
+            createModal(data.dropdown_options, data.id_tayangan);
+        });
+    }
+
+    function createModal(options, id_tayangan) {
+        // Create modal structure
+        let modal = document.createElement('div');
+        modal.classList.add('modal', 'fade');
+        modal.id = 'dynamicModal';
+        modal.innerHTML = `
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="favoriteModalLabel">Tambah ke Daftar Favorit</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <form>
+                            <div class="mb-3">
+                                <label for="favoriteListDropdown" class="form-label">Judul Daftar Favorit:</label>
+                                <select class="form-control" id="dropdown">
+                                    ${options.map(option => `<option value="${option.value}">${option.text}</option>`).join('')}
+                                </select>
+                            </div>
+                            <a type="button" class="btn btn-primary" id="addFavorite"">Tambah</a>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        `;
+
+        // Append modal to body
+        document.body.appendChild(modal);
+
+        // Show the modal
+        $('#dynamicModal').modal('show');
+
+        document.getElementById('addFavorite').addEventListener('click', function() {
+            var dropdownValue = document.getElementById('dropdown').value;
+            var redirectUrl = `{% url 'tayangan:insert_favorit' %}?id_tayangan=${id_tayangan}&timestamp=${dropdownValue}`;
+            window.location.href = redirectUrl;
+        });
+
+        // Remove the modal from DOM after it's hidden
+        $('#dynamicModal').on('hidden.bs.modal', function () {
+            $(this).remove();
+        });
+    }
+</script>
 {% endblock content %} 
