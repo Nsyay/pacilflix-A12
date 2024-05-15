@@ -25,7 +25,7 @@ def trailer_guest(request):
     return render(request, 'trailer_guest.html')
 
 def insert_unduhan(request):
-    username = 'test'
+    username = request.COOKIES.get('username')
     id_tayangan = '12345678-1234-5678-1234-567812345000'
     timestamp = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
 
