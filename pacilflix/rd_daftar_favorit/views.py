@@ -1,5 +1,7 @@
 from django.shortcuts import redirect, render
 from django.db import connection
+from django.http import HttpResponseRedirect
+from django.urls import reverse
 
 # Create your views here.
 def daftar_favorit(request):
@@ -62,4 +64,5 @@ def hapus_tayangan_favorit(request):
             f'DELETE FROM TAYANGAN_MEMILIKI_DAFTAR_FAVORIT WHERE username = \'{username}\' AND timestamp = \'{timestamp}\' \
                 AND id_tayangan = \'{id_tayangan}\'')
     connection.commit()
-    return redirect('daftar_favorit:tayangan_favorit')
+    redirect_url = reverse('daftar_favorit:tayangan_favorit') + '?timestamp=' + timestamp
+    return HttpResponseRedirect(redirect_url)

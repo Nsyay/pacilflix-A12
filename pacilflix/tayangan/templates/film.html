@@ -113,7 +113,7 @@
                         <div class="modal-body" id="modalBody">
                             <!-- Text will be inserted here by JavaScript -->
                         </div>
-                        <a type="button" class="btn btn-primary" href="{% url 'tayangan:insert_unduhan' %}?id_tayangan={{ record.0 }}">Menuju Daftar Unduhan</a>
+                        <a type="button" class="btn btn-primary" href="{% url 'tayangan:insert_unduhan' %}?id_tayangan={{ film_details.id_tayangan }}">Menuju Daftar Unduhan</a>
                     </div>
                 </div>
             </div>
@@ -147,7 +147,7 @@
         const formattedToday = dateToday.toLocaleDateString('id-ID', options);
         const formattedSevenDays = dateInSevenDays.toLocaleDateString('id-ID', options);
 
-        const modalBodyText = `Selamat! Anda telah berhasil mengunduh [Judul Tayangan] dan akan berlaku hingga ${formattedSevenDays}. Cek informasi selengkapnya pada halaman daftar unduhan.`;
+        const modalBodyText = `Selamat! Anda telah berhasil mengunduh {{ film_details.judul }} dan akan berlaku hingga ${formattedSevenDays}. Cek informasi selengkapnya pada halaman daftar unduhan.`;
         document.getElementById('modalBody').textContent = modalBodyText;
     });
 
@@ -194,7 +194,7 @@
 
         document.getElementById('addFavorite').addEventListener('click', function() {
             var dropdownValue = document.getElementById('dropdown').value;
-            var redirectUrl = `{% url 'tayangan:insert_favorit' %}?id_tayangan=${id_tayangan}&timestamp=${dropdownValue}`;
+            var redirectUrl = `{% url 'tayangan:insert_favorit' %}?id_tayangan={{ film_details.id_tayangan }}&timestamp=${dropdownValue}`;
             window.location.href = redirectUrl;
         });
 
