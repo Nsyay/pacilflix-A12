@@ -62,11 +62,12 @@
                     </tr>
                 </thead>
                 <tbody>
+                    {% for record in records_daftar_favorit %}
                     <tr>
-                        <td>Film A</td>
+                        <td>{{record.1}}</td>
                         <td><button class="btn btn-danger">Hapus</button></td>
                     </tr>
-                    <!-- More rows can be added here -->
+                    {% endfor %}
                 </tbody>
             </table>
         </div>
