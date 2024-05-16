@@ -69,6 +69,9 @@
     <div class="container">
         <div class="series-details">
             <h1>{{ series_details.judul }}</h1>
+            <br><br><br><br><br><br><br><br><br><br><br>
+            <input type="range" class="form-range" id="watchrange">
+            <br><br><br>
             <p>{{ series_details.sinopsis }}</p>
             <br>
             <p>Genre: 
@@ -92,36 +95,11 @@
         </div>
         <h3 style="color: white;">Episodes</h3>
         <div class="film-buttons">
-            <a href="{% url 'tayangan:episode' %}">
-                <button class="primary">1</button>
-            </a>
-            <a href="{% url 'tayangan:episode' %}">
-                <button class="primary">2</button>
-            </a>
-            <a href="{% url 'tayangan:episode' %}">
-                <button class="primary">3</button>
-            </a>
-            <a href="{% url 'tayangan:episode' %}">
-                <button class="primary">4</button>
-            </a>
-            <a href="{% url 'tayangan:episode' %}">
-                <button class="primary">5</button>
-            </a>
-            <a href="{% url 'tayangan:episode' %}">
-                <button class="primary">6</button>
-            </a>
-            <a href="{% url 'tayangan:episode' %}">
-                <button class="primary">7</button>
-            </a>
-            <a href="{% url 'tayangan:episode' %}">
-                <button class="primary">8</button>
-            </a>
-            <a href="{% url 'tayangan:episode' %}">
-                <button class="primary">9</button>
-            </a>
-            <a href="{% url 'tayangan:episode' %}">
-                <button class="primary">10</button>
-            </a>
+            {% for episode in series_details.episodes %}
+                <a href="{% url 'tayangan:episode' series_details.id_tayangan episode.0 %}">
+                    <button class="primary">{{ episode.0|add:1 }}</button>
+                </a>
+            {% endfor %}
         </div>
 
         <div class="film-buttons">
