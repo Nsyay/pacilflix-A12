@@ -15,10 +15,28 @@ def execute_query(query):
             for row in cursor.fetchall()
         ]
 
-def episode(request):
-    query = "SELECT * FROM episode;"
-    episodes = execute_query(query)
-    return render(request, 'episode.html', {'episodes': episodes})
+def episode(request, series_id, episode_number):
+    episode_number = int(episode_number)
+    with connection.cursor() as cursor:
+        cursor.execute(f"SELECT judul FROM TAYANGAN WHERE id = '{series_id}'")
+        series_title = cursor.fetchone()
+
+        cursor.execute(f"SELECT * FROM EPISODE WHERE id_series = '{series_id}'")
+        episodes = cursor.fetchall()
+        episodes_with_index = [(i, *episode) for i, episode in enumerate(episodes)]
+
+        if 0 <= episode_number < len(episodes):
+            episode = episodes[episode_number]
+        else:
+            episode = None
+
+    context = {
+        'episodes' : episodes_with_index,
+        'episode': episode,
+        'series_title': series_title[0] if series_title else None,  # Ensure series_title is not None before accessing the title
+    }
+    return render(request, 'episode.html', context)
+
 
 #@login_required
 def film(request, film_id):
@@ -99,6 +117,7 @@ def film(request, film_id):
     return render(request, 'film.html', {'film_details': film_details})
 
 def series(request, series_id):
+    episodes = []
     with connection.cursor() as cursor:
         cursor.execute(
             f"SELECT judul, sinopsis, asal_negara FROM TAYANGAN WHERE id = '{series_id}'"
@@ -156,6 +175,10 @@ def series(request, series_id):
 
             penulis = penulis_names if penulis_names else None
 
+            cursor.execute(f"SELECT * FROM EPISODE WHERE id_series = '{series_id}'")
+            episodes = cursor.fetchall()
+            episodes_with_index = [(i, *episode) for i, episode in enumerate(episodes)]
+
             series_details = {
                 'judul': series_details[0],
                 'sinopsis': series_details[1],
@@ -164,7 +187,8 @@ def series(request, series_id):
                 'sutradara': director,
                 'pemain' : pemain,
                 'penulis' : penulis,
-                'id_tayangan' : series_id
+                'id_tayangan' : series_id,
+                'episodes' : episodes_with_index,
             }
 
     return render(request, 'series.html', {'series_details': series_details})
@@ -181,7 +205,7 @@ def tayangan(request):
             cursor.execute(
                 f'SELECT judul, sinopsis, url_video_trailer, release_date_trailer, id FROM TAYANGAN WHERE id = \'{films[i][0]}\'' )
             details = cursor.fetchone()
-            films[i] = details
+            films[i] = details + ('film',)
 
         cursor.execute(
             f'SELECT * FROM SERIES;')
@@ -190,7 +214,7 @@ def tayangan(request):
             cursor.execute(
                 f'SELECT judul, sinopsis, url_video_trailer, release_date_trailer, id FROM TAYANGAN WHERE id = \'{seriess[i][0]}\'' )
             details_series = cursor.fetchone()
-            seriess[i] = details_series
+            seriess[i] = details_series + ('series',)
 
 
     tayangan = films + seriess

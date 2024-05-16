@@ -4,7 +4,7 @@ from .views import *
 app_name = 'tayangan'
 
 urlpatterns = [
-    path('episode/', episode, name='episode'),
+    path('series/episode/<series_id>/<episode_number>/', episode, name='episode'),
     path('film/<film_id>/', film, name='film'),
     path('series/<series_id>/', series, name='series'),
     path('', tayangan, name='tayangan'),
