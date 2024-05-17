@@ -54,7 +54,7 @@
                     <tr>
                         <td>{{record.1}}</td>
                         <td>
-                            <a href="{% url 'daftar_favorit:hapus_tayangan_favorit' %}?timestamp={{ time }}&id_tayangan={{ record.0 }}">
+                            <a href="{% url 'daftar_favorit:hapus_tayangan_favorit' %}?timestamp={{ time }}&id_tayangan={{ record.0 }}&judul={{ judul_daftar }}">
                                 <button class="btn btn-danger">Hapus</button>
                             </a>
                         </td>
