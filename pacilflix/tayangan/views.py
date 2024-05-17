@@ -289,3 +289,6 @@ def insert_favorit(request):
         
     connection.commit()
     return redirect('daftar_favorit:daftar_favorit')
+
+def open_ulasan(request, tayangan_id):
+    return redirect('ulasan:ulasan', tayangan_id)

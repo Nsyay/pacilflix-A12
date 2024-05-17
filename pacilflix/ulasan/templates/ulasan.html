@@ -13,6 +13,38 @@
             margin: 0;
             padding: 0;
         }
+        .ulasan-card {
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            padding: 16px;
+            margin: 16px 0;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+        .ulasan-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 8px;
+        }
+        .username {
+            color: #FFFFFF; 
+            font-size: 1.5em;
+            font-weight: bold;
+        }
+        .timestamp {
+            color: #888;
+            font-size: 0.9em;
+        }
+        .rating {
+            color: #FFFFFF; 
+            font-size: 1.1em;
+        }
+        .description {
+            font-style: italic;
+            margin-top: 8px;
+            font-size: 1em;
+            color: #FFFFFF;
+        }
         .container {
             max-width: 800px;
             margin: 0 auto;
@@ -82,15 +114,10 @@
 {% block content %}
 <body>
     <div class="container">
-        <center><h1>Ulasan Judul Film</h1></center>
+        <center><h1>Ulasan {{ judul.0 }}</h1></center>
         <div class="review-form">
             <h2>Beri ulasan</h2>
             <form id="reviewForm">
-                <div class="form-row">
-                    <label for="judul">Judul ulasan:</label>
-                    <input type="text" id="judul" name="judul" required>
-                </div>
-                
                 <div class="form-row">
                     <label for="rating">Rating (1-5):</label>
                     <input type="number" id="rating" name="rating" min="1" max="5" required>
@@ -108,6 +135,20 @@
             <ul id="reviews">
             </ul>
         </div>
+
+        {% for ulasan in ulasans %}
+        <div class="ulasan-card">
+            <div class="ulasan-header">
+                <span class="username">{{ ulasan.1 }}</span>
+                <span class="timestamp">{{ ulasan.2 }}</span>
+            </div>
+            <div class="rating">{{ ulasan.3 }}/5</div>
+            <div class="description">
+                "{{ ulasan.4 }}"
+            </div>
+        </div>
+        {% endfor %}
+
     </div>
 
     <script>

@@ -4,5 +4,5 @@ from .views import *
 app_name = 'ulasan'
 
 urlpatterns = [
-    path('', ulasan, name='ulasan')
+    path('tayangan/<id_tayangan>', ulasan, name='ulasan')
 ]
