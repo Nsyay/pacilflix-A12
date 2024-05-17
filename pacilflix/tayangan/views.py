@@ -288,4 +288,4 @@ def insert_favorit(request):
             f'INSERT INTO TAYANGAN_MEMILIKI_DAFTAR_FAVORIT VALUES (\'{id_tayangan}\', \'{timestamp}\', \'{username}\')')
         
     connection.commit()
-    return redirect('daftar_favorit:daftar_favorit')
+    return JsonResponse({'status': 'success'})
