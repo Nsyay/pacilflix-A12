@@ -10,3 +10,8 @@ BEGIN
 END;
 $$
 LANGUAGE plpgsql;
+
+CREATE TRIGGER before_pengguna_daftar
+BEFORE INSERT ON pengguna
+FOR EACH ROW
+EXECUTE FUNCTION check_username_terdaftar();
