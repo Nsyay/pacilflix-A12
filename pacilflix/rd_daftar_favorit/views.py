@@ -22,6 +22,7 @@ def daftar_favorit(request):
 
 def tayangan_favorit(request):
     timestamp = request.GET.get('timestamp')
+    judul_daftar = request.GET.get('judul')
     username = request.COOKIES.get('username')
     records_tayangan_favorit = []
 
@@ -36,7 +37,8 @@ def tayangan_favorit(request):
     context = {
             'status': 'success',
             'records_tayangan_favorit': records_tayangan_favorit,
-            'time': timestamp
+            'time': timestamp,
+            'judul_daftar': judul_daftar
         }
     response = render(request, 'tayangan_favorit.html', context)
     return response
