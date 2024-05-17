@@ -114,17 +114,18 @@
 {% block content %}
 <body>
     <div class="container">
-        <center><h1>Ulasan {{ judul.0 }}</h1></center>
+        <center><h1>Ulasan {{ judul.1 }}</h1></center>
         <div class="review-form">
             <h2>Beri ulasan</h2>
-            <form id="reviewForm">
+            <form id="reviewForm" method="post" action="{% url 'ulasan:submit_ulasan' judul.0 %}">
+                {% csrf_token %}
                 <div class="form-row">
                     <label for="rating">Rating (1-5):</label>
                     <input type="number" id="rating" name="rating" min="1" max="5" required>
                 </div>
                 <div class="form-row">
-                    <label for="comment">Ulasan:</label>
-                    <textarea id="comment" name="comment" rows="4" required></textarea>
+                    <label for="deskripsi">Ulasan:</label>
+                    <textarea id="deskripsi" name="deskripsi" rows="4" required></textarea>
                 </div>
                 <center><input type="submit" value="Submit"></center>
             </form>
@@ -150,32 +151,5 @@
         {% endfor %}
 
     </div>
-
-    <script>
-        function addReview(username, rating, comment) {
-            const reviewList = document.getElementById('reviews');
-            const li = document.createElement('li');
-            li.classList.add('review-item');
-            li.innerHTML = `
-                <strong>${username}</strong> 
-                <span class="rating">(${rating}/5)</span>
-                <p>${comment}</p>
-            `;
-            reviewList.prepend(li); 
-        }
-        document.getElementById('reviewForm').addEventListener('submit', function(event) {
-            event.preventDefault(); 
-
-            const username = document.getElementById('username').value;
-            const rating = document.getElementById('rating').value;
-            const comment = document.getElementById('comment').value;
-
-            addReview(username, rating, comment);
-
-            document.getElementById('username').value = '';
-            document.getElementById('rating').value = '';
-            document.getElementById('comment').value = '';
-        });
-    </script>
 </body>
 {% endblock content %} 
