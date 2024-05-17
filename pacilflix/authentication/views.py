@@ -1,8 +1,8 @@
 from django.shortcuts import render, redirect
-from django.http import HttpResponseRedirect
+# from django.http import JsonResponse
 from django.urls import reverse
 from django.contrib import messages
-from django.db import connection
+from django.db import DatabaseError, connection
 import datetime
 
 def login_view(request):
@@ -35,19 +35,29 @@ def register_view(request):
         password = request.POST.get('password')
         negara_asal = request.POST.get('negara_asal')
 
-        with connection.cursor() as cursor:
-            cursor.execute("SELECT * FROM pengguna WHERE username = %s", [username])
-            users = cursor.fetchall()
+        try:
+            with connection.cursor() as cursor:
+                cursor.execute("SELECT * FROM pengguna WHERE username = %s", [username])
+                users = cursor.fetchall()
 
-        if users:
-            messages.error(request, "Username yang Anda gunakan sudah tersedia.")
-            context = {'form': request.POST}
+            if users:
+                context = {
+                    'form': request.POST,
+                    'error': "Username sudah terdaftar di sistem."
+                }
+                return render(request, 'register.html', context)
+
+            with connection.cursor() as cursor:
+                cursor.execute("INSERT INTO pengguna (username, password, negara_asal) VALUES (%s, %s, %s)", [username, password, negara_asal])
+
+            return redirect('authentication:login')
+
+        except DatabaseError as e:
+            context = {
+                'form': request.POST,
+                'error': f"Terjadi kesalahan: {str(e)}"
+            }
             return render(request, 'register.html', context)
-        
-        with connection.cursor() as cursor:
-            cursor.execute("INSERT INTO pengguna (username, password, negara_asal) VALUES (%s, %s, %s)", [username, password, negara_asal])
-        
-        messages.success(request, 'Akun berhasil dibuat!')
-        return redirect('authentication:login')
 
     return render(request, 'register.html')
+
