@@ -78,7 +78,6 @@
         </select>
     </div>
     <div class="contributors" id="contributors">
-        <!-- Kontributor akan dirender di sini -->
         {% for id, contributor in contributors.items %}
             <div class="contributor" data-types="{{ contributor.kontribusi|join:' ' }}">
                 <strong>{{ contributor.nama }}</strong><br>
