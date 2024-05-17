@@ -49,10 +49,10 @@ def hapus_daftar(request):
 
     with connection.cursor() as cursor:
         cursor.execute(
-            f'DELETE FROM DAFTAR_FAVORIT WHERE username = \'{username}\' AND timestamp = \'{timestamp}\'')
-        
-        cursor.execute(
             f'DELETE FROM TAYANGAN_MEMILIKI_DAFTAR_FAVORIT WHERE username = \'{username}\' AND timestamp = \'{timestamp}\'')
+
+        cursor.execute(
+            f'DELETE FROM DAFTAR_FAVORIT WHERE username = \'{username}\' AND timestamp = \'{timestamp}\'')
     connection.commit()
     return redirect('daftar_favorit:daftar_favorit')
 
