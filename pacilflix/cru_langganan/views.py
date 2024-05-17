@@ -1,3 +1,4 @@
+from django.http import JsonResponse
 from django.utils import timezone
 from django.shortcuts import redirect, render
 from django.db import connection
@@ -137,27 +138,11 @@ def create_transaction(request):
         
         with connection.cursor() as cursor:
             cursor.execute('''
-                SELECT COUNT(*) 
-                FROM Transaction 
-                WHERE username = %s 
-                    AND end_date_time >= CURRENT_DATE
-            ''', [username])
-            paket_aktif_count = cursor.fetchone()[0]
-
-            if paket_aktif_count > 0:
-                cursor.execute('''
-                    UPDATE Transaction 
-                    SET end_date_time = %s,
-                        nama_paket = %s,
-                        start_date_time = %s,
-                        metode_pembayaran = %s,
-                        timestamp_pembayaran = %s
-                    WHERE username = %s AND end_date_time >= CURRENT_DATE
-                ''', [end_date.isoformat(), nama_paket, start_date.isoformat(), payment_method, current_timestamp.isoformat(), username])
-            else:
-                cursor.execute('''
-                    INSERT INTO Transaction (username, nama_paket, start_date_time, end_date_time, metode_pembayaran, timestamp_pembayaran)
-                    VALUES (%s, %s, %s, %s, %s, %s)
-                ''', [username, nama_paket, start_date.isoformat(), end_date.isoformat(), payment_method, current_timestamp.isoformat()])
+                INSERT INTO TRANSACTION (username, nama_paket, start_date_time, end_date_time, metode_pembayaran, timestamp_pembayaran)
+                VALUES (%s, %s, %s, %s, %s, %s)
+            ''', [username, nama_paket, start_date, end_date, payment_method, current_timestamp])
         
         return redirect('langganan:kelola_langganan')
+
+    return JsonResponse({'error': 'Invalid request'}, status=400)
+
