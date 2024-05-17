@@ -223,7 +223,7 @@ def tayangan(request):
     #tayangan = tayangan[:10]
 
     tayangan = get_top_tayangan()
-    print(tayangan)
+    #print(tayangan)
 
 
     tayangan_first_half = tayangan[:5]
@@ -270,7 +270,7 @@ def trailer(request):
     #tayangan = tayangan[:10]
 
     tayangan = get_top_tayangan()
-    print(tayangan)
+    #print(tayangan)
 
 
     tayangan_first_half = tayangan[:5]
