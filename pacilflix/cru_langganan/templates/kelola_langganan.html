@@ -76,16 +76,27 @@
                 </tr>
             </thead>
             <tbody>
-                {% for item in active_subscriptions %}
+                {% if active_subscriptions %}
+                    {% for item in active_subscriptions %}
+                        <tr>
+                            <td>{{ item.nama_paket }}</td>
+                            <td>{{ item.harga }}</td>
+                            <td>{{ item.resolusi_layar }}</td>
+                            <td>{{ item.dukungan_perangkat }}</td>
+                            <td>{{ item.start_date_time }}</td>
+                            <td>{{ item.end_date_time }}</td>
+                        </tr>
+                    {% endfor %}
+                {% else %}
                     <tr>
-                        <td>{{ item.nama_paket }}</td>
-                        <td>{{ item.harga }}</td>
-                        <td>{{ item.resolusi_layar }}</td>
-                        <td>{{ item.dukungan_perangkat }}</td>
-                        <td>{{ item.start_date_time }}</td>
-                        <td>{{ item.end_date_time }}</td>
+                        <td>-</td>
+                        <td>-</td>
+                        <td>-</td>
+                        <td>-</td>
+                        <td>-</td>
+                        <td>-</td>
                     </tr>
-                {% endfor %}
+                {% endif %}
             </tbody>
         </table>
     </div>
@@ -107,7 +118,7 @@
                         <td>{{ package.harga }}</td>
                         <td>{{ package.resolusi_layar }}</td>
                         <td>{{ package.dukungan_perangkat }}</td>
-                        <td><a href="{% url 'langganan:beli_langganan' %}" class="button">Subscribe</a></td>
+                        <td><a href="{% url 'langganan:beli_langganan' package.nama %}" class="button">Beli</a></td>
                     </tr>
                 {% endfor %}
             </tbody>
