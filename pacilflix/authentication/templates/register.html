@@ -7,7 +7,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>PacilFlix - A12</title>
     <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@400;500&display=swap" rel="stylesheet">
-    <!-- <link rel="stylesheet" href="../styles/register.css"> -->
 </head>
 {% endblock meta %}
 
@@ -86,10 +85,13 @@ a{
     <div class="container">
         <h2>PacilFlix - A12</h2>
         <p class="login-heading">FORM REGISTRASI</p>
-        <input type="text" placeholder="Username">
-        <input type="password" placeholder="Password">
-        <input type="text" placeholder="Negara Asal">
-        <button class="button">DAFTAR</button>
+        <form method="post" action="{% url 'authentication:register' %}">
+            {% csrf_token %}
+            <input type="text" name="username" placeholder="Username" required>
+            <input type="password" name="password" placeholder="Password" required>
+            <input type="text" name="negara_asal" placeholder="Negara Asal" required>
+            <button type="submit" class="button">DAFTAR</button>
+        </form>
         <p class="Login">Sudah memiliki akun? <a href="{% url 'authentication:login' %}">Login</a></p>
     </div>
 </body>
