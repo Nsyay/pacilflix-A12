@@ -1,0 +1,76 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block meta %}
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tayangan</title>
+  <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+  <style>
+    body {
+      background-color: #2d3250;
+    }
+    .container {
+      margin-top: 50px;
+    }
+    .card {
+      background-color: #9fa8c5;
+      margin-bottom: 20px;
+    }
+    .search-bar {
+      margin-bottom: 20px;
+    }
+    .btn{
+      background-color: #2d3250;
+    }
+    h1 {
+      color: white; 
+    }
+
+    h2{
+      color: white;
+    }
+  </style>
+</head>
+{% endblock meta %}
+
+{% block content %}
+<body>
+
+<div class="container">
+  <h1 class="text-center mb-4">Tayangan</h1>
+
+  <form method="get" action="{% url 'tayangan:search_tayangan' %}">
+    <div class="input-group mb-3 search-bar">
+      <input type="text" name="keyword" class="form-control" placeholder="Search..." aria-label="Search" aria-describedby="basic-addon2" value="{{ keyword }}">
+      <div class="input-group-append">
+        <button class="btn btn-outline-secondary" type="submit">Search</button>
+      </div>
+    </div>
+  </form>
+
+  <h2 class="mt-5 mb-3">Hasil pencarian</h2>
+    <div class="col-md-12">
+        {% for tayangan in tayangan_list %}
+        <div class="card mb-3">
+          <div class="card-body">
+            <h5 class="card-title">{{ tayangan.0 }}</h5>
+            <p class="card-text">{{ tayangan.1 }}</p>
+            <p class="card-text"><a href="{{ tayangan.2 }}">Lihat trailer</a> - {{ tayangan.3 }}</p>
+            {% if tayangan.5 == "film" %}
+              <a href="{% url 'tayangan:film' tayangan.4 %}" class="btn btn-primary">Tonton</a>
+            {% elif tayangan.5 == "series" %}
+              <a href="{% url 'tayangan:series' tayangan.4 %}" class="btn btn-primary">Tonton</a>
+            {% endif %}
+          </div>
+        </div>
+        {% endfor %}
+    </div>
+  </div>
+</body>
+{% endblock content %} 

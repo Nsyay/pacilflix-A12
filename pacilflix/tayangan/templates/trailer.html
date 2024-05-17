@@ -42,134 +42,72 @@
 <div class="container">
   <h1 class="text-center mb-4">Tayangan</h1>
 
-  <div class="input-group mb-3 search-bar">
-    <input type="text" class="form-control" placeholder="Search..." aria-label="Search" aria-describedby="basic-addon2">
-    <div class="input-group-append">
-      <button class="btn btn-outline-secondary" type="button">Search</button>
+  <form method="get" action="{% url 'tayangan:search_trailer' %}">
+    <div class="input-group mb-3 search-bar">
+      <input type="text" name="keyword" class="form-control" placeholder="Search..." aria-label="Search" aria-describedby="basic-addon2" value="{{ keyword }}">
+      <div class="input-group-append">
+        <button class="btn btn-outline-secondary" type="submit">Search</button>
+      </div>
     </div>
-  </div>
+  </form>
 
   <h2 class="mb-3">Top 10 Movies</h2>
   <div class="row">
     <div class="col-md-6">
-      <div class="card">
-        <div class="card-body">
-          <h4>1</h4>
-          <h5 class="card-title">Judul</h5>
-          <p class="card-text">Sinopsis lorem ipsum folor sit amet</p>
-          <p class="card-text"><a href="">lihat trailer</a> - tanggal rilis trailer</p>
-          <p class="card-text">xx views</p>
-        </div>
+      {% for item in tayangan_first_half %}
+      <div class="card mb-3">
+          <div class="card-body">
+              <h4>{{ forloop.counter }}</h4>
+              <h5 class="card-title">{{ item.1 }}</h5>
+              <p class="card-text">{{ item.2 }}</p>
+              <p class="card-text"><a href="{{ item.3 }}">lihat trailer</a> - {{ item.4 }}</p>
+              <p class="card-text"> {{ item.6 }} views</p>
+          </div>
       </div>
-      <div class="card">
-        <div class="card-body">
-          <h4>2</h4>
-          <h5 class="card-title">Judul</h5>
-          <p class="card-text">Sinopsis lorem ipsum folor sit amet</p>
-          <p class="card-text"><a href="">lihat trailer</a> - tanggal rilis trailer</p>
-          <p class="card-text">xx views</p>
-        </div>
-      </div>
-      <div class="card">
-        <div class="card-body">
-          <h4>3</h4>
-          <h5 class="card-title">Judul</h5>
-          <p class="card-text">Sinopsis lorem ipsum folor sit amet</p>
-          <p class="card-text"><a href="">lihat trailer</a> - tanggal rilis trailer</p>
-          <p class="card-text">xx views</p>
-        </div>
-      </div>
-      <div class="card">
-        <div class="card-body">
-          <h4>4</h4>
-          <h5 class="card-title">Judul</h5>
-          <p class="card-text">Sinopsis lorem ipsum folor sit amet</p>
-          <p class="card-text"><a href="">lihat trailer</a> - tanggal rilis trailer</p>
-          <p class="card-text">xx views</p>
-        </div>
-      </div>
-      <div class="card">
-        <div class="card-body">
-          <h4>5</h4>
-          <h5 class="card-title">Judul</h5>
-          <p class="card-text">Sinopsis lorem ipsum folor sit amet</p>
-          <p class="card-text"><a href="">lihat trailer</a> - tanggal rilis trailer</p>
-          <p class="card-text">xx views</p>
-        </div>
-      </div>
+      {% endfor %}
     </div>
     <div class="col-md-6">
+      {% for item in tayangan_second_half %}
       <div class="card mb-3">
-        <div class="card-body">
-          <h4>6</h4>
-          <h5 class="card-title">Judul</h5>
-          <p class="card-text">Sinopsis lorem ipsum dolor sit amet</p>
-          <p class="card-text"><a href="#">Lihat trailer</a> - Tanggal rilis trailer</p>
-          <p class="card-text">xx views</p>
-        </div>
+          <div class="card-body">
+              <h4>{{ forloop.counter0 |add:6 }}</h4>
+              <h5 class="card-title">{{ item.1 }}</h5>
+              <p class="card-text">{{ item.2 }}</p>
+              <p class="card-text"><a href="{{ item.3 }}">lihat trailer</a> - {{ item.4 }}</p>
+              <p class="card-text">{{ item.6 }} views</p>
+          </div>
       </div>
-      <div class="card mb-3">
-        <div class="card-body">
-          <h4>7</h4>
-          <h5 class="card-title">Judul</h5>
-          <p class="card-text">Sinopsis lorem ipsum dolor sit amet</p>
-          <p class="card-text"><a href="#">Lihat trailer</a> - Tanggal rilis trailer</p>
-          <p class="card-text">xx views</p>
-        </div>
-      </div>
-      <div class="card mb-3">
-        <div class="card-body">
-          <h4>8</h4>
-          <h5 class="card-title">Judul</h5>
-          <p class="card-text">Sinopsis lorem ipsum dolor sit amet</p>
-          <p class="card-text"><a href="#">Lihat trailer</a> - Tanggal rilis trailer</p>
-          <p class="card-text">xx views</p>
-        </div>
-      </div>
-      <div class="card mb-3">
-        <div class="card-body">
-          <h4>9</h4>
-          <h5 class="card-title">Judul</h5>
-          <p class="card-text">Sinopsis lorem ipsum dolor sit amet</p>
-          <p class="card-text"><a href="#">Lihat trailer</a> - Tanggal rilis trailer</p>
-          <p class="card-text">xx views</p>
-        </div>
-      </div>
-      <div class="card mb-3">
-        <div class="card-body">
-          <h4>10</h4>
-          <h5 class="card-title">Judul</h5>
-          <p class="card-text">Sinopsis lorem ipsum dolor sit amet</p>
-          <p class="card-text"><a href="#">Lihat trailer</a> - Tanggal rilis trailer</p>
-          <p class="card-text">xx views</p>
-        </div>
-      </div>
+      {% endfor %}
     </div>
   </div>
 
   <h2 class="mt-5 mb-3">Film</h2>
   <div class="row">
     <div class="col-md-12">
+      {% for film in films %}
       <div class="card">
         <div class="card-body">
-          <h5 class="card-title">Judul</h5>
-          <p class="card-text">Lorem ipsum dolor sit amet.</p>
-          <p class="card-text"><a href="#">Lihat trailer</a> - Tanggal rilis trailer</p>
+          <h5 class="card-title">{{ film.0 }}</h5>
+          <p class="card-text">{{ film.1 }}</p>
+          <p class="card-text"><a href="{{ film.2 }}">Lihat trailer</a> - {{ film.3 }}</p>
         </div>
       </div>
+      {% endfor %}
     </div>
   </div>
   
   <h2 class="mt-5 mb-3">Series</h2>
   <div class="row">
     <div class="col-md-12">
+      {% for series in seriess %}
       <div class="card">
         <div class="card-body">
-          <h5 class="card-title">Judul</h5>
-          <p class="card-text">Lorem ipsum dolor sit amet.</p>
-          <p class="card-text"><a href="#">Lihat trailer</a> - Tanggal rilis trailer</p>
+          <h5 class="card-title">{{ series.0 }}</h5>
+          <p class="card-text">{{ series.1 }}</p>
+          <p class="card-text"><a href="{{ series.2 }}">Lihat trailer</a> - {{ series.3 }}</p>
         </div>
       </div>
+      {% endfor %}
     </div>
   </div>
 </div>

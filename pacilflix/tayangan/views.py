@@ -240,10 +240,51 @@ def tayangan(request):
     return response
 
 def trailer(request):
-    return render(request, 'trailer.html')
+    films = []
+    seriess = []
 
-def trailer_guest(request):
-    return render(request, 'trailer_guest.html')
+    with connection.cursor() as cursor:
+        cursor.execute(
+            f'SELECT * FROM FILM;')
+        films = cursor.fetchall()
+        for i in range(len(films)):
+            cursor.execute(
+                f'SELECT judul, sinopsis, url_video_trailer, release_date_trailer, id FROM TAYANGAN WHERE id = \'{films[i][0]}\'' )
+            details = cursor.fetchone()
+            films[i] = details + ('film',)
+
+        cursor.execute(
+            f'SELECT * FROM SERIES;')
+        seriess = cursor.fetchall()
+        for i in range(len(seriess)):
+            cursor.execute(
+                f'SELECT judul, sinopsis, url_video_trailer, release_date_trailer, id FROM TAYANGAN WHERE id = \'{seriess[i][0]}\'' )
+            details_series = cursor.fetchone()
+            seriess[i] = details_series + ('series',)
+
+
+    #tayangan = films + seriess
+
+    # Shuffle and select 10 random items
+    #random.shuffle(tayangan)
+    #tayangan = tayangan[:10]
+
+    tayangan = get_top_tayangan()
+    print(tayangan)
+
+
+    tayangan_first_half = tayangan[:5]
+    tayangan_second_half = tayangan[5:]
+
+    context = {
+        'films': films,
+        'seriess' : seriess,
+        'tayangan' : tayangan,
+        'tayangan_first_half': tayangan_first_half,
+        'tayangan_second_half': tayangan_second_half,
+    }
+    response = render(request, 'trailer.html', context)
+    return response
 
 def insert_unduhan(request):
     username = request.COOKIES.get('username')
@@ -369,3 +410,40 @@ def search_tayangan(request):
         'keyword': keyword
     }
     return render(request, 'tayangan_search.html', context)
+
+def search_trailer(request):
+    tayangan_list = []
+    keyword = request.GET.get('keyword', '')
+
+    with connection.cursor() as cursor:
+        query = """
+            SELECT id, judul, sinopsis, url_video_trailer, release_date_trailer 
+            FROM TAYANGAN 
+            WHERE LOWER(judul) LIKE LOWER(%s);
+        """
+        cursor.execute(query, [f'%{keyword}%'])
+        tayangan = cursor.fetchall()
+
+        for item in tayangan:
+            id_tayangan, judul, sinopsis, url_video_trailer, release_date_trailer = item
+
+            cursor.execute("SELECT id_tayangan FROM FILM WHERE id_tayangan = %s", [id_tayangan])
+            is_film = cursor.fetchone()
+
+            if is_film:
+                tayangan_type = 'film'
+            else:
+                cursor.execute("SELECT id_tayangan FROM SERIES WHERE id_tayangan = %s", [id_tayangan])
+                is_series = cursor.fetchone()
+                if is_series:
+                    tayangan_type = 'series'
+                else:
+                    tayangan_type = 'unknown'
+
+            tayangan_list.append((judul, sinopsis, url_video_trailer, release_date_trailer, id_tayangan, tayangan_type))
+
+    context = {
+        'tayangan_list': tayangan_list,
+        'keyword': keyword
+    }
+    return render(request, 'trailer_search.html', context)
