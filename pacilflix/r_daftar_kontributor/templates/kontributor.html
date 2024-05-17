@@ -18,6 +18,7 @@
         }
         h1 {
             text-align: center;
+            margin-top: 10px;
             margin-bottom: 20px;
         }
         .container {
@@ -34,7 +35,6 @@
             gap: 20px;
         }
         .contributor {
-            /* border: 1px solid #ccc; */
             background-color: #424769;
             border-radius: 30px;
             padding: 10px;
@@ -74,49 +74,40 @@
             <option value="all">Semua</option>
             <option value="Sutradara">Sutradara</option>
             <option value="Pemain">Pemain</option>
-            <option value="Penulis Skenario">Penulis Skenario</option>
+            <option value="Penulis">Penulis Skenario</option>
         </select>
     </div>
     <div class="contributors" id="contributors">
+        <!-- Kontributor akan dirender di sini -->
+        {% for id, contributor in contributors.items %}
+            <div class="contributor" data-types="{{ contributor.kontribusi|join:' ' }}">
+                <strong>{{ contributor.nama }}</strong><br>
+                <div class="gender">
+                    {% if contributor.jenis_kelamin == 1 %}
+                        Perempuan
+                    {% else %}
+                        Laki-laki
+                    {% endif %}
+                </div>
+                <div class="nationality">{{ contributor.kewarganegaraan }}</div>
+                <div>{{ contributor.kontribusi|join:', ' }}</div>
+            </div>
+        {% endfor %}
     </div>
 </div>
 <script>
-    const contributors = [
-        { name: 'Rizky Prawira', types: ['Sutradara', 'Penulis Skenario'], gender: 'Laki-laki', nationality: 'Indonesia' },
-        { name: 'Raisa Hannaliya', types: ['Pemain'], gender: 'Perempuan', nationality: 'Amerika Serikat' },
-        { name: 'Clarista', types: ['Pemain', 'Sutradara'], gender: 'Perempuan', nationality: 'Inggris' },
-        { name: 'Bob Brown', types: ['Sutradara'], gender: 'Laki-laki', nationality: 'Kanada' },
-        { name: 'Charlie Davis', types: ['Pemain'], gender: 'Laki-laki', nationality: 'Australia' },
-        { name: 'Nasya Ayu', types: ['Penulis'], gender: 'Perempuan', nationality: 'Korea Selatan' },
-    ];
-
-    function renderContributors(contributors) {
-        const contributorsContainer = document.getElementById('contributors');
-        contributorsContainer.innerHTML = '';
-        contributors.forEach((contributor, index) => {
-            const contributorElement = document.createElement('div');
-            contributorElement.classList.add('contributor');
-            contributorElement.innerHTML = `
-                <strong>${contributor.name}</strong><br>
-                <div class="gender">${contributor.gender}</div>
-                <div class="nationality">${contributor.nationality}</div>
-                <div>${contributor.types.join(', ')}</div>
-            `;
-            contributorsContainer.appendChild(contributorElement);
-        });
-    }
-
-    renderContributors(contributors);
-
     document.getElementById('contributorType').addEventListener('change', function() {
         const selectedType = this.value;
-        if (selectedType === 'all') {
-            renderContributors(contributors);
-        } else {
-            const filteredContributors = contributors.filter(contributor => contributor.types.includes(selectedType));
-            renderContributors(filteredContributors);
-        }
+        const contributors = document.querySelectorAll('.contributor');
+        contributors.forEach(contributor => {
+            const types = contributor.getAttribute('data-types').split(' ');
+            if (selectedType === 'all' || types.includes(selectedType)) {
+                contributor.style.display = 'block';
+            } else {
+                contributor.style.display = 'none';
+            }
+        });
     });
 </script>
 </body>
-{% endblock content %} 
+{% endblock content %}
