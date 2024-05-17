@@ -87,30 +87,37 @@
     <div class="container">
         <h3>Informasi Paket yang Ingin Dibeli:</h3>
         <table>
-            <tr>
-                <th>Nama</th>
-                <th>Harga</th>
-                <th>Resolusi Layar</th>
-                <th>Dukungan Perangkat</th>
-            </tr>
-            <tr>
-                <td>Premium</td>
-                <td>Rp149.000</td>
-                <td>1080p</td>
-                <td>Mobile, Web</td>
-            </tr>
+            <thead>
+                <tr>
+                    <th>Nama Paket</th>
+                    <th>Harga</th>
+                    <th>Resolusi Layar</th>
+                    <th>Dukungan Perangkat</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>{{ package.0 }}</td>
+                    <td>{{ package.1 }}</td>
+                    <td>{{ package.2 }}</td>
+                    <td>{{ package.3 }}</td>
+                </tr>
+            </tbody>
         </table>
         <h3>Pilih Metode Pembayaran:</h3>
-        <div class="dropdown">
-            <button class="button" style="background-color: #9fa8c5;">Pilih Metode Pembayaran</button>
-            <div class="dropdown-content">
-                <a href="#">transfer bank</a>
-                <a href="#">kartu kredit</a>
-                <a href="#">e-wallet</a>
+        <form action="{% url 'langganan:create_transaction' %}" method="post">
+            {% csrf_token %}
+            <input type="hidden" name="nama_paket" value="{{ package.0 }}">
+            <div class="filter-container">
+                <select name="payment_method" id="paymentMethod">
+                    <option value="E-Wallet">E-Wallet</option>
+                    <option value="Kartu Kredit">Kartu Kredit</option>
+                    <option value="Transfer Bank">Transfer Bank</option>
+                </select>
             </div>
-        </div>
-        <br>
-        <button class="button" style="margin-top: 15px;">Bayar</button>
+            <button type="submit" class="button" style="margin-top: 15px;">Bayar</button>
+        </form>
     </div>
 </body>
+
 {% endblock content %}
