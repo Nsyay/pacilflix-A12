@@ -5,5 +5,5 @@ app_name = 'ulasan'
 
 urlpatterns = [
     path('tayangan/<id_tayangan>', ulasan, name='ulasan'),
-    path('tayangan/<id_tayangan>', submit_ulasan, name='submit_ulasan')
+    path('submit_ulasan/<id_tayangan>', submit_ulasan, name='submit_ulasan')
 ]

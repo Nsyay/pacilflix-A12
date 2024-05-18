@@ -107,6 +107,11 @@
         label, h1, h2{
             color: white;
         }
+        .error {
+            color: red;
+            margin-top: 10px;
+            text-align: center;
+        }
     </style>
 </head>
 {% endblock meta %}
@@ -117,7 +122,7 @@
         <center><h1>Ulasan {{ judul.1 }}</h1></center>
         <div class="review-form">
             <h2>Beri ulasan</h2>
-            <form id="reviewForm" method="post" action="{% url 'ulasan:submit_ulasan' judul.0 %}">
+            <form id="reviewForm" method="post" action="{% url 'ulasan:submit_ulasan' id_tayangan %}">
                 {% csrf_token %}
                 <div class="form-row">
                     <label for="rating">Rating (1-5):</label>
@@ -128,8 +133,12 @@
                     <textarea id="deskripsi" name="deskripsi" rows="4" required></textarea>
                 </div>
                 <center><input type="submit" value="Submit"></center>
+                {% if error %}
+                    <p><div class="error">{{ error }}</div></p>
+                {% endif %}
             </form>
         </div>
+        
 
         <div class="review-list">
             <h2>Ulasan</h2>
