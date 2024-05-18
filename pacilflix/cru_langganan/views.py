@@ -1,11 +1,9 @@
-from datetime import datetime
 from django.http import JsonResponse
 from django.utils import timezone
 from django.shortcuts import redirect, render
 from django.db import connection
 from django.views.decorators.csrf import csrf_exempt
 from django.contrib.auth.decorators import login_required
-import pytz
 
 def kelola_langganan(request):
     username = request.COOKIES.get('username')
