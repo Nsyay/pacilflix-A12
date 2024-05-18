@@ -1,9 +1,10 @@
 from django.shortcuts import render, redirect
 from django.db import connection
 from django.contrib.auth.decorators import login_required
-from django.http import JsonResponse
-from datetime import datetime
+from django.http import HttpResponseRedirect, JsonResponse
+import datetime
 from django.http import HttpResponse
+from django.urls import reverse
 
 def execute_query(query):
     with connection.cursor() as cursor:
@@ -447,3 +448,28 @@ def search_trailer(request):
         'keyword': keyword
     }
     return render(request, 'trailer_search.html', context)
+
+def add_riwayat_nonton(request):
+    if request.method == 'POST':
+        username = request.COOKIES.get('username')
+        id_tayangan = request.POST.get('id_tayangan')
+        
+        start_date_time = datetime.datetime.now()
+        
+        watchrange = int(request.POST.get('watchrange'))  
+        durasi = float(request.POST.get('durasi')) 
+        
+        watched_duration = (watchrange / 100) * durasi 
+        
+        end_date_time = start_date_time + datetime.timedelta(minutes=watched_duration)
+
+        query = """
+        INSERT INTO RIWAYAT_NONTON (username, start_date_time, id_tayangan, end_date_time)
+        VALUES (%s, %s, %s, %s)
+        """
+
+        with connection.cursor() as cursor:
+            cursor.execute(query, [username, start_date_time, id_tayangan, end_date_time])
+    
+    connection.commit()
+    return HttpResponseRedirect(reverse('tayangan:tayangan'))

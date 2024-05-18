@@ -71,7 +71,16 @@
             <h1>{{ series_title }}</h1>
             <h2>{{ episode.1 }}</h2>
             <br><br><br><br><br><br><br><br><br><br><br>
-            <input type="range" class="form-range" min="0" max="100" id="watchrange">
+            <form id="watchForm" method="post" action="{% url 'tayangan:add_riwayat_nonton' %}">
+                {% csrf_token %}
+                <input type="hidden" name="id_tayangan" value="{{ episodes.0.1 }}">
+                
+                <input type="range" class="form-range" min="0" max="100" id="watchrange" name="watchrange" required>
+                
+                <input type="hidden" id="durasi" name="durasi" value="{{ episode.3}}"> 
+                
+                <div class="film-buttons"><button class="primary" input type="submit" value="Submit">Tonton</button></div>
+            </form>
             <br><br><br>
             <h3 style="color: white;">Other Episodes</h3>
             <div class="film-buttons">
