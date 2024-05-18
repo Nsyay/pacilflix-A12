@@ -361,11 +361,11 @@ def get_top_tayangan():
             LEFT JOIN EPISODE e ON s.id_tayangan = e.id_series
             GROUP BY t.id, t.judul, t.sinopsis, t.url_video_trailer, t.release_date_trailer, f.durasi_film, tayangan_type
         )
-        SELECT * 
+        SELECT DISTINCT ON (t.id, t.viewer) t.*, r.*
         FROM tayangan_durasi t
         LEFT JOIN RIWAYAT_NONTON r ON r.id_tayangan = t.id
         WHERE (EXTRACT(EPOCH FROM (r.end_date_time - r.start_date_time)) / 60) >= (0.7 * t.durasi_min)
-        ORDER BY viewer DESC
+        ORDER BY t.viewer DESC, t.id
         LIMIT 10;
     """
     
