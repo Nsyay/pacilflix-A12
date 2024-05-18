@@ -14,8 +14,10 @@ BEGIN
         SET end_date_time = NEW.end_date_time,
             nama_paket = NEW.nama_paket,
             metode_pembayaran = NEW.metode_pembayaran,
-            timestamp_pembayaran = NEW.timestamp_pembayaran
+            timestamp_pembayaran = NEW.timestamp_pembayaran,
+            start_date_time = NEW.start_date_time
         WHERE username = NEW.username AND start_date_time = paket_aktif.start_date_time;
+        
         RETURN NULL;
     ELSE
         RETURN NEW;
