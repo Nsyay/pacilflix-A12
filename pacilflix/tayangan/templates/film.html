@@ -221,7 +221,17 @@
         document.getElementById('addFavorite').addEventListener('click', function() {
             var dropdownValue = document.getElementById('dropdown').value;
             var redirectUrl = `{% url 'tayangan:insert_favorit' %}?id_tayangan={{ film_details.id_tayangan }}&timestamp=${dropdownValue}`;
-            window.location.href = redirectUrl;
+            $.ajax({
+                url: redirectUrl,
+                method: 'GET',
+                success: function(response) {
+                    // Close the modal on successful response
+                    $('#dynamicModal').modal('hide');
+                },
+                error: function(xhr, status, error) {
+                    console.error('Error:', error);
+                }
+            });
         });
 
         // Remove the modal from DOM after it's hidden

@@ -40,7 +40,7 @@
 {% block content %}
 <body>
     <div class="container">
-        <h1 class="text-center mb-4">Example Title 1</h1>
+        <h1 class="text-center mb-4">{{judul_daftar}}</h1>
         <div class="table-responsive">
             <table class="table">
                 <thead>
@@ -54,7 +54,7 @@
                     <tr>
                         <td>{{record.1}}</td>
                         <td>
-                            <a href="{% url 'daftar_favorit:hapus_tayangan_favorit' %}?timestamp={{ time }}&id_tayangan={{ record.0 }}">
+                            <a href="{% url 'daftar_favorit:hapus_tayangan_favorit' %}?timestamp={{ time }}&id_tayangan={{ record.0 }}&judul={{ judul_daftar }}">
                                 <button class="btn btn-danger">Hapus</button>
                             </a>
                         </td>
