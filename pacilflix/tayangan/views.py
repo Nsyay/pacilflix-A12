@@ -1,10 +1,10 @@
-import random
 from django.shortcuts import render, redirect
 from django.db import connection
 from django.contrib.auth.decorators import login_required
-from django.http import JsonResponse
-from datetime import datetime
+from django.http import HttpResponseRedirect, JsonResponse
+import datetime
 from django.http import HttpResponse
+from django.urls import reverse
 
 def execute_query(query):
     with connection.cursor() as cursor:
@@ -217,11 +217,15 @@ def tayangan(request):
             seriess[i] = details_series + ('series',)
 
 
-    tayangan = films + seriess
+    #tayangan = films + seriess
 
     # Shuffle and select 10 random items
-    random.shuffle(tayangan)
-    tayangan = tayangan[:10]
+    #random.shuffle(tayangan)
+    #tayangan = tayangan[:10]
+
+    tayangan = get_top_tayangan()
+    #print(tayangan)
+
 
     tayangan_first_half = tayangan[:5]
     tayangan_second_half = tayangan[5:]
@@ -237,10 +241,51 @@ def tayangan(request):
     return response
 
 def trailer(request):
-    return render(request, 'trailer.html')
+    films = []
+    seriess = []
 
-def trailer_guest(request):
-    return render(request, 'trailer_guest.html')
+    with connection.cursor() as cursor:
+        cursor.execute(
+            f'SELECT * FROM FILM;')
+        films = cursor.fetchall()
+        for i in range(len(films)):
+            cursor.execute(
+                f'SELECT judul, sinopsis, url_video_trailer, release_date_trailer, id FROM TAYANGAN WHERE id = \'{films[i][0]}\'' )
+            details = cursor.fetchone()
+            films[i] = details + ('film',)
+
+        cursor.execute(
+            f'SELECT * FROM SERIES;')
+        seriess = cursor.fetchall()
+        for i in range(len(seriess)):
+            cursor.execute(
+                f'SELECT judul, sinopsis, url_video_trailer, release_date_trailer, id FROM TAYANGAN WHERE id = \'{seriess[i][0]}\'' )
+            details_series = cursor.fetchone()
+            seriess[i] = details_series + ('series',)
+
+
+    #tayangan = films + seriess
+
+    # Shuffle and select 10 random items
+    #random.shuffle(tayangan)
+    #tayangan = tayangan[:10]
+
+    tayangan = get_top_tayangan()
+    #print(tayangan)
+
+
+    tayangan_first_half = tayangan[:5]
+    tayangan_second_half = tayangan[5:]
+
+    context = {
+        'films': films,
+        'seriess' : seriess,
+        'tayangan' : tayangan,
+        'tayangan_first_half': tayangan_first_half,
+        'tayangan_second_half': tayangan_second_half,
+    }
+    response = render(request, 'trailer.html', context)
+    return response
 
 def insert_unduhan(request):
     username = request.COOKIES.get('username')
@@ -288,4 +333,143 @@ def insert_favorit(request):
             f'INSERT INTO TAYANGAN_MEMILIKI_DAFTAR_FAVORIT VALUES (\'{id_tayangan}\', \'{timestamp}\', \'{username}\')')
         
     connection.commit()
-    return JsonResponse({'status': 'success'})
+    return redirect('daftar_favorit:daftar_favorit')
+
+def open_ulasan(request, tayangan_id):
+    return redirect('ulasan:ulasan', tayangan_id)
+
+def get_top_tayangan():
+    query = """
+        WITH tayangan_durasi AS (
+            SELECT 
+                t.id,
+                t.judul,
+                t.sinopsis,
+                t.url_video_trailer,
+                t.release_date_trailer,
+                COALESCE(f.durasi_film, SUM(e.durasi))*0.7 AS durasi_min,
+                COALESCE(COUNT(r.id_tayangan), 0) as viewer,
+                CASE
+                    WHEN f.id_tayangan IS NOT NULL THEN 'film'
+                    WHEN s.id_tayangan IS NOT NULL THEN 'series'
+                    ELSE NULL
+                END AS tayangan_type
+            FROM TAYANGAN t
+            LEFT JOIN RIWAYAT_NONTON r ON r.id_tayangan = t.id
+            LEFT JOIN FILM f ON t.id = f.id_tayangan
+            LEFT JOIN SERIES s ON t.id = s.id_tayangan
+            LEFT JOIN EPISODE e ON s.id_tayangan = e.id_series
+            GROUP BY t.id, t.judul, t.sinopsis, t.url_video_trailer, t.release_date_trailer, f.durasi_film, tayangan_type
+        )
+        SELECT DISTINCT ON (t.id, t.viewer) t.*, r.*
+        FROM tayangan_durasi t
+        LEFT JOIN RIWAYAT_NONTON r ON r.id_tayangan = t.id
+        WHERE (EXTRACT(EPOCH FROM (r.end_date_time - r.start_date_time)) / 60) >= (0.7 * t.durasi_min)
+        ORDER BY t.viewer DESC, t.id
+        LIMIT 10;
+    """
+    
+    with connection.cursor() as cursor:
+        cursor.execute(query)
+        result = cursor.fetchall()
+        
+    return result
+
+def search_tayangan(request):
+    tayangan_list = []
+    keyword = request.GET.get('keyword', '')
+
+    with connection.cursor() as cursor:
+        query = """
+            SELECT id, judul, sinopsis, url_video_trailer, release_date_trailer 
+            FROM TAYANGAN 
+            WHERE LOWER(judul) LIKE LOWER(%s);
+        """
+        cursor.execute(query, [f'%{keyword}%'])
+        tayangan = cursor.fetchall()
+
+        for item in tayangan:
+            id_tayangan, judul, sinopsis, url_video_trailer, release_date_trailer = item
+
+            cursor.execute("SELECT id_tayangan FROM FILM WHERE id_tayangan = %s", [id_tayangan])
+            is_film = cursor.fetchone()
+
+            if is_film:
+                tayangan_type = 'film'
+            else:
+                cursor.execute("SELECT id_tayangan FROM SERIES WHERE id_tayangan = %s", [id_tayangan])
+                is_series = cursor.fetchone()
+                if is_series:
+                    tayangan_type = 'series'
+                else:
+                    tayangan_type = 'unknown'
+
+            tayangan_list.append((judul, sinopsis, url_video_trailer, release_date_trailer, id_tayangan, tayangan_type))
+
+    context = {
+        'tayangan_list': tayangan_list,
+        'keyword': keyword
+    }
+    return render(request, 'tayangan_search.html', context)
+
+def search_trailer(request):
+    tayangan_list = []
+    keyword = request.GET.get('keyword', '')
+
+    with connection.cursor() as cursor:
+        query = """
+            SELECT id, judul, sinopsis, url_video_trailer, release_date_trailer 
+            FROM TAYANGAN 
+            WHERE LOWER(judul) LIKE LOWER(%s);
+        """
+        cursor.execute(query, [f'%{keyword}%'])
+        tayangan = cursor.fetchall()
+
+        for item in tayangan:
+            id_tayangan, judul, sinopsis, url_video_trailer, release_date_trailer = item
+
+            cursor.execute("SELECT id_tayangan FROM FILM WHERE id_tayangan = %s", [id_tayangan])
+            is_film = cursor.fetchone()
+
+            if is_film:
+                tayangan_type = 'film'
+            else:
+                cursor.execute("SELECT id_tayangan FROM SERIES WHERE id_tayangan = %s", [id_tayangan])
+                is_series = cursor.fetchone()
+                if is_series:
+                    tayangan_type = 'series'
+                else:
+                    tayangan_type = 'unknown'
+
+            tayangan_list.append((judul, sinopsis, url_video_trailer, release_date_trailer, id_tayangan, tayangan_type))
+
+    context = {
+        'tayangan_list': tayangan_list,
+        'keyword': keyword
+    }
+    return render(request, 'trailer_search.html', context)
+
+def add_riwayat_nonton(request):
+    if request.method == 'POST':
+        username = request.COOKIES.get('username')
+        id_tayangan = request.POST.get('id_tayangan')
+        
+        start_date_time = datetime.datetime.now()
+        
+        watchrange = int(request.POST.get('watchrange'))  
+        durasi = float(request.POST.get('durasi')) 
+        
+        watched_duration = (watchrange / 100) * durasi 
+        
+        end_date_time = start_date_time + datetime.timedelta(minutes=watched_duration)
+
+        query = """
+        INSERT INTO RIWAYAT_NONTON (username, start_date_time, id_tayangan, end_date_time)
+        VALUES (%s, %s, %s, %s)
+        """
+
+        with connection.cursor() as cursor:
+            cursor.execute(query, [username, start_date_time, id_tayangan, end_date_time])
+    
+    connection.commit()
+    return HttpResponseRedirect(reverse('tayangan:tayangan'))
