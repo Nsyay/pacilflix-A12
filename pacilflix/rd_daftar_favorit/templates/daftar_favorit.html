@@ -59,7 +59,7 @@
                 </thead>
                 <tbody>
                     {% for record in records_daftar_favorit %}
-                    <tr class="clickable-row" data-href="{% url 'daftar_favorit:tayangan_favorit' %}?timestamp={{ record.0|date:"Y-m-d H:i:s" }}">
+                    <tr class="clickable-row" data-href="{% url 'daftar_favorit:tayangan_favorit' %}?judul={{ record.2 }}&timestamp={{ record.0|date:"Y-m-d H:i:s" }}">
                         <td>{{record.2}}</td>
                         <td>{{record.0|date:"Y-m-d H:i:s"}}</td>
                         <td>

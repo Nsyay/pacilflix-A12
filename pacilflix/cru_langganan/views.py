@@ -1,9 +1,12 @@
-from django.shortcuts import render
+from django.http import JsonResponse
+from django.utils import timezone
+from django.shortcuts import redirect, render
 from django.db import connection
+from django.views.decorators.csrf import csrf_exempt
+from django.contrib.auth.decorators import login_required
 
 def kelola_langganan(request):
     username = request.COOKIES.get('username')
-    # username = 'chikawaii'
 
     with connection.cursor() as cursor:
         cursor.execute('''
@@ -27,6 +30,7 @@ def kelola_langganan(request):
                     FROM TRANSACTION 
                     WHERE username = t.username
                 )
+                AND t.end_date_time >= CURRENT_DATE
             GROUP BY 
                 t.nama_paket, p.harga, p.resolusi_layar, t.start_date_time, t.end_date_time;
         ''', [username])
@@ -80,7 +84,9 @@ def kelola_langganan(request):
             WHERE 
                 t.username = %s
             GROUP BY 
-                t.nama_paket, p.harga, t.start_date_time, t.end_date_time, t.metode_pembayaran, t.timestamp_pembayaran;
+                t.nama_paket, p.harga, t.start_date_time, t.end_date_time, t.metode_pembayaran, t.timestamp_pembayaran
+            ORDER BY
+                p.harga DESC;
         ''', [username])
 
         all_transactions = []
@@ -96,5 +102,47 @@ def kelola_langganan(request):
     
     return render(request, 'kelola_langganan.html', {'active_subscriptions': active_subscriptions, 'all_packages': all_packages, 'all_transactions': all_transactions})
 
-def beli_langganan(request):
-    return render(request, 'beli_langganan.html')
+def beli_langganan(request, nama_paket):
+    with connection.cursor() as cursor:
+        cursor.execute('''
+            SELECT 
+                p.nama,
+                p.harga,
+                p.resolusi_layar,
+                string_agg(d.dukungan_perangkat, ', ') AS dukungan_perangkat
+            FROM 
+                PAKET p
+            LEFT JOIN 
+                DUKUNGAN_PERANGKAT d ON p.nama = d.nama_paket
+            WHERE 
+                p.nama = %s
+            GROUP BY
+                p.nama, p.harga, p.resolusi_layar;
+        ''', [nama_paket])
+
+        package = cursor.fetchone()
+
+    return render(request, 'beli_langganan.html', {'package': package})
+
+@csrf_exempt
+def create_transaction(request):
+    if request.method == 'POST':
+        username = request.COOKIES.get('username')
+        nama_paket = request.POST.get('nama_paket')
+        payment_method = request.POST.get('payment_method')
+
+        current_timestamp = timezone.now()
+
+        start_date = current_timestamp
+        end_date = start_date + timezone.timedelta(days=30)
+        
+        with connection.cursor() as cursor:
+            cursor.execute('''
+                INSERT INTO TRANSACTION (username, nama_paket, start_date_time, end_date_time, metode_pembayaran, timestamp_pembayaran)
+                VALUES (%s, %s, %s, %s, %s, %s)
+            ''', [username, nama_paket, start_date, end_date, payment_method, current_timestamp])
+        
+        return redirect('langganan:kelola_langganan')
+
+    return JsonResponse({'error': 'Invalid request'}, status=400)
+
