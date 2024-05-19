@@ -5,15 +5,8 @@ from django.http import HttpResponseRedirect, JsonResponse
 import datetime
 from django.http import HttpResponse
 from django.urls import reverse
+from django.contrib.auth.decorators import user_passes_test
 
-def execute_query(query):
-    with connection.cursor() as cursor:
-        cursor.execute(query)
-        columns = [col[0] for col in cursor.description]
-        return [
-            dict(zip(columns, row))
-            for row in cursor.fetchall()
-        ]
 
 def episode(request, series_id, episode_number):
     episode_number = int(episode_number)
@@ -38,7 +31,6 @@ def episode(request, series_id, episode_number):
     return render(request, 'episode.html', context)
 
 
-#@login_required
 def film(request, film_id):
     with connection.cursor() as cursor:
         cursor.execute(
@@ -217,15 +209,7 @@ def tayangan(request):
             seriess[i] = details_series + ('series',)
 
 
-    #tayangan = films + seriess
-
-    # Shuffle and select 10 random items
-    #random.shuffle(tayangan)
-    #tayangan = tayangan[:10]
-
     tayangan = get_top_tayangan()
-    #print(tayangan)
-
 
     tayangan_first_half = tayangan[:5]
     tayangan_second_half = tayangan[5:]
